@@ -1,0 +1,8 @@
+{
+  "name": "ONNESS | Spor & Beslenme",
+  "description": "iPhone ve mobil uyumlu 6 aylık aşamalı evde spor periyotlaması, kalori, makro ve kilo takip uygulaması.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

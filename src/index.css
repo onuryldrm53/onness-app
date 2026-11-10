@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #060a0f;
+  --bg-surface: #0b121b;
+  --bg-card: #101926;
+  --bg-card-hover: #152233;
+  --border-green: #1b281d;
+  --border-green-light: #2d4231;
+  --border-subtle: #1a273b;
+  --accent-green: #759667;
+  --accent-green-glow: rgba(117, 150, 103, 0.2);
+  --accent-mint: #53704b;
+  --accent-cyan: #7fa890;
+  --text-main: #d4dde8;
+  --text-bright: #e2eaf4;
+  --text-muted: #7e91ac;
+  --danger: #ef4444;
+  --font-ios: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-ios);
+}
+
+html {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  overflow-y: visible;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(117, 150, 103, 0.09), transparent 60%),
+    linear-gradient(rgba(27, 40, 29, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 40, 29, 0.22) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px, 28px 28px;
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* iOS input auto-zoom prevention: inputs must be at least 16px font-size */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Hide number input arrows */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Custom horizontal scroll track */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-green);
+  border-radius: 4px;
+}
+
+/* Safe area insets for iPhone notch & dynamic island */
+.safe-top {
+  padding-top: max(12px, env(safe-area-inset-top, 12px));
+}
+.safe-bottom {
+  padding-bottom: max(14px, env(safe-area-inset-bottom, 14px));
+}
+
+/* Sound wave & click ripple animations */
+@keyframes soundRipple {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+@keyframes soundWavePulse {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-sound-ripple {
+  animation: soundRipple 0.35s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-sound-wave {
+  animation: soundWavePulse 0.5s ease-in-out infinite;
+}

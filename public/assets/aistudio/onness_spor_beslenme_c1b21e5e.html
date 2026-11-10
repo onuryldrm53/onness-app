@@ -1,0 +1,4188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ONNESS | Spor & Beslenme</title>
+  <style>
+    :root {
+      --bg-deep: #060a0f;
+      --bg-surface: #0b121b;
+      --bg-card: #101926;
+      --bg-card-hover: #152233;
+      --border-green: #1b281d;
+      --border-green-light: #2d4231;
+      --border-subtle: #1a273b;
+      --accent-green: #759667;
+      --accent-green-glow: rgba(117, 150, 103, 0.15);
+      --accent-mint: #53704b;
+      --accent-cyan: #7fa890;
+      --text-main: #d4dde8;
+      --text-bright: #e2eaf4;
+      --text-muted: #7e91ac;
+      --danger: #ef4444;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(117, 150, 103, 0.08), transparent 55%),
+        linear-gradient(rgba(27, 40, 29, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 40, 29, 0.25) 1px, transparent 1px);
+      background-size: 100% 100%, 28px 28px, 28px 28px;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* Üst Bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 8, 17, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-green);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      color: var(--text-bright);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-logo .dot {
+      color: var(--accent-green);
+      font-size: 1.6rem;
+      line-height: 0.8;
+      text-shadow: 0 0 6px rgba(117, 150, 103, 0.4);
+    }
+
+    .btn-nav-home {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-home:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .btn-lang-toggle {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-bright);
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .btn-lang-toggle:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .btn-nav-settings {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-settings:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    /* Zorluk Butonları (Kolay / Orta / Zor) */
+    .diff-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 9px 6px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .diff-btn:hover {
+      border-color: var(--accent-green);
+      color: var(--text-bright);
+    }
+
+    .diff-btn.active {
+      background: var(--accent-green) !important;
+      border-color: #92b683 !important;
+      color: #060a0f !important;
+      font-weight: 900 !important;
+      box-shadow: 0 0 16px var(--accent-green-glow), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Ana Konteyner */
+    main {
+      flex: 1;
+      max-width: 640px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .view-screen {
+      display: none;
+      width: 100%;
+      animation: screenFade 0.25s ease-out;
+    }
+
+    .view-screen.active {
+      display: block;
+    }
+
+    .view-screen.slide-out-right {
+      animation: slideOutRight 0.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes screenFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideOutRight {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(80px); }
+    }
+
+    /* ==============================================
+       1. MERKEZİ GİRİŞ / PORTAL EKRANI
+       ============================================== */
+    #screen-hub {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      min-height: calc(100vh - 120px);
+    }
+
+    #screen-hub.active {
+      display: flex;
+    }
+
+    .hub-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .hub-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--text-bright);
+      letter-spacing: 0.5px;
+    }
+
+    .hub-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .portals-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .portal-card {
+      background: linear-gradient(145deg, #101926 0%, #131c18 100%);
+      border: 1.5px solid var(--border-green);
+      border-radius: 22px;
+      padding: 24px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle, var(--accent-green-glow) 0%, transparent 70%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .portal-card:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-green-glow);
+    }
+
+    .portal-card:active {
+      transform: scale(0.98);
+    }
+
+    .portal-icon {
+      width: 58px;
+      height: 58px;
+      background: rgba(117, 150, 103, 0.12);
+      border: 1.5px solid var(--accent-green);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-green);
+      flex-shrink: 0;
+      box-shadow: 0 0 16px var(--accent-green-glow);
+    }
+
+    .portal-info {
+      flex: 1;
+    }
+
+    .portal-name {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--text-bright);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .portal-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .portal-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    /* Kart & Ortak Tasarım */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      background: rgba(117, 150, 103, 0.14);
+      color: var(--accent-green);
+      border: 1px solid var(--border-green-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ==============================================
+       2. SPOR MODÜLÜ (1 AYLIK / 4 HAFTALIK)
+       ============================================== */
+    /* 1 YILLIK PROGRAM İÇİN AY SEÇİCİ */
+    .month-selector-wrapper {
+      margin-bottom: 12px;
+    }
+
+    .month-scroll-track {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 2px 8px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-green) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .month-scroll-track::-webkit-scrollbar {
+      height: 4px;
+    }
+    .month-scroll-track::-webkit-scrollbar-thumb {
+      background: var(--border-green);
+      border-radius: 4px;
+    }
+
+    .month-chip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .month-chip.active {
+      background: var(--accent-green);
+      color: #060a0f;
+      border-color: #92b683;
+      box-shadow: 0 0 14px var(--accent-green-glow);
+    }
+
+    .month-chip .month-num {
+      font-size: 0.82rem;
+      font-weight: 800;
+      opacity: 1;
+    }
+
+    .week-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 16px;
+    }
+
+    .week-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 9px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .week-tab.active {
+      background: var(--accent-green);
+      color: #060a0f;
+      box-shadow: 0 0 14px var(--accent-green-glow);
+    }
+
+    .week-overview-card {
+      background: linear-gradient(145deg, #0e1624 0%, #121d17 100%);
+      border: 1px solid var(--border-green);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .week-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text-bright);
+    }
+
+    .week-focus-text {
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .progress-bar-bg {
+      height: 7px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-mint), var(--accent-green));
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px var(--accent-green-glow);
+    }
+
+    .day-card {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .day-card:hover {
+      border-color: var(--border-green-light);
+    }
+
+    .day-card:active {
+      transform: scale(0.985);
+    }
+
+    .day-info {
+      flex: 1;
+    }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .day-name {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-bright);
+    }
+
+    .day-focus-label {
+      font-size: 0.78rem;
+      color: var(--accent-green);
+      font-weight: 700;
+    }
+
+    .day-meta {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .status-badge.completed {
+      background: rgba(117, 150, 103, 0.18);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green-glow);
+    }
+
+    /* Gün Detay Ekranı */
+    .top-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    /* Gün içindeki hareket listesi kartları */
+    .exercise-list-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .exercise-list-item:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 12px var(--accent-green-glow);
+    }
+
+    .exercise-list-item:active {
+      transform: scale(0.985);
+    }
+
+    .exercise-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border-green-light);
+      background: #09101b;
+    }
+
+    .exercise-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .exercise-list-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .exercise-list-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .exercise-list-sub {
+      font-size: 0.74rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .exercise-list-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .btn-back {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-green);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-back:hover {
+      border-color: var(--accent-green);
+      background: var(--bg-card);
+    }
+
+    .exercise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .media-container {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, #09101b 0%, #131c18 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-green);
+    }
+
+    .media-container video, .media-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .placeholder-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .placeholder-badge svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--accent-green);
+    }
+
+    .exercise-content {
+      padding: 16px;
+    }
+
+    .exercise-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .exercise-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-bright);
+    }
+
+    .target-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(117, 150, 103, 0.12);
+      color: var(--accent-green);
+      border: 1px solid var(--border-green-light);
+      padding: 3px 9px;
+      border-radius: 8px;
+    }
+
+    .form-cue {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 12px;
+      background: rgba(5, 8, 17, 0.6);
+      padding: 8px 12px;
+      border-radius: 10px;
+      border-left: 3px solid var(--accent-green);
+    }
+
+    .sets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .set-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 9px 6px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.18s ease;
+    }
+
+    .set-box:active {
+      transform: scale(0.96);
+    }
+
+    .set-box.completed {
+      background: rgba(117, 150, 103, 0.18);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green-glow);
+    }
+
+    .set-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .set-box.completed .set-title {
+      color: var(--accent-green);
+    }
+
+    .set-val {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      margin-top: 2px;
+    }
+
+    .set-box.completed .set-val {
+      color: var(--accent-green);
+    }
+
+    .timer-bar {
+      margin-top: 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-green);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .timer-display {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent-green);
+      letter-spacing: 1px;
+    }
+
+    .btn-timer {
+      background: var(--accent-green);
+      border: none;
+      color: #060a0f;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 7px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 12px var(--accent-green-glow);
+    }
+
+    /* Harekete Başla ve Aksiyon Alanı */
+    .btn-start-action {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-green) 100%);
+      border: 1px solid #92b683;
+      color: #060a0f;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 14px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px var(--accent-green-glow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 14px;
+      user-select: none;
+    }
+
+    .btn-start-action:active {
+      transform: scale(0.98);
+    }
+
+    .btn-start-action.running {
+      background: #152419;
+      border-color: var(--accent-green);
+      color: var(--text-bright);
+      box-shadow: 0 0 16px rgba(117, 150, 103, 0.2);
+    }
+
+    .btn-start-action.all-done {
+      background: rgba(117, 150, 103, 0.15);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      cursor: default;
+      box-shadow: none;
+    }
+
+    /* Harekete Özgü Antrenör Notları & Kişisel Notlar */
+    .exercise-notes-box {
+      background: rgba(5, 8, 17, 0.55);
+      border: 1px solid var(--border-green);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 14px;
+    }
+
+    .notes-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .notes-list li {
+      font-size: 0.78rem;
+      color: var(--text-main);
+      line-height: 1.42;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .notes-list li::before {
+      content: '•';
+      color: var(--accent-green);
+      font-weight: 900;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .user-note-area {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-green);
+    }
+
+    .user-note-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      color: var(--text-bright);
+      font-size: 0.78rem;
+      padding: 8px 10px;
+      resize: vertical;
+      min-height: 50px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .user-note-input:focus {
+      border-color: var(--accent-green);
+    }
+
+    /* Postür ve Duruş Çizimleri için Stil */
+    .posture-diagram-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #152219 0%, #080f1a 80%);
+      padding: 10px;
+      position: relative;
+    }
+
+    .posture-diagram-wrapper svg {
+      width: 100%;
+      max-width: 320px;
+      height: 125px;
+      filter: drop-shadow(0 0 8px rgba(117, 150, 103, 0.3));
+    }
+
+    .posture-cue-pill {
+      position: absolute;
+      bottom: 8px;
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Özel Görsel Alanı & Değiştirme Rozeti */
+    .exercise-media-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      display: block;
+      filter: contrast(1.05) brightness(0.92);
+      transition: transform 0.3s ease;
+    }
+
+    .posture-svg-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .btn-change-media {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(6, 10, 15, 0.82);
+      border: 1px solid var(--border-green-light);
+      color: var(--accent-green);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+      transition: all 0.2s;
+    }
+
+    .btn-change-media:hover {
+      background: var(--accent-green);
+      color: #060a0f;
+      border-color: #92b683;
+    }
+
+    /* Dinlenme Sayacı Overlay */
+    #rest-overlay {
+      position: fixed;
+      bottom: 24px;
+      left: 18px;
+      right: 18px;
+      max-width: 440px;
+      margin: 0 auto;
+      background: rgba(10, 17, 34, 0.96);
+      border: 2px solid var(--accent-green);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 24px var(--accent-green-glow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 20px;
+      padding: 14px 18px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      animation: popRest 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popRest {
+      from { transform: translateY(60px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .rest-meta { display: flex; flex-direction: column; }
+    .rest-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; }
+    .rest-time { font-size: 1.65rem; font-weight: 900; color: var(--accent-green); letter-spacing: 1px; }
+    .rest-actions { display: flex; gap: 6px; align-items: center; }
+
+    .btn-rest-adj {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 7px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-rest-skip {
+      background: var(--danger);
+      border: none;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* ==============================================
+       3. BESLENME & KİLO MODÜLÜ
+       ============================================== */
+    .cal-hero-card {
+      background: linear-gradient(145deg, #0e1624 0%, #121d17 100%);
+      border: 1px solid var(--border-green);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .cal-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric-box {
+      background: rgba(5, 8, 17, 0.45);
+      border: 1px solid var(--border-green);
+      border-radius: 14px;
+      padding: 10px 6px;
+    }
+
+    .metric-val {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text-bright);
+    }
+
+    .metric-val.highlight {
+      color: var(--accent-green);
+      text-shadow: none;
+    }
+
+    .metric-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .macros-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .macro-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .macro-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .macro-amount {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text-bright);
+      margin: 4px 0;
+    }
+
+    .macro-meter {
+      height: 4px;
+      background: var(--bg-surface);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .macro-fill {
+      height: 100%;
+      background: var(--accent-green);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Kilo & Hedef Özet Kartı */
+    .weight-summary-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-green);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    .target-weight-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-edit-target {
+      background: rgba(117, 150, 103, 0.14);
+      border: 1px solid var(--border-green-light);
+      color: var(--accent-green);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-view-graph {
+      background: linear-gradient(135deg, #2b3d27 0%, #5d7951 100%);
+      border: 1px solid var(--border-green-light);
+      color: #dce5df;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: none;
+    }
+
+    /* Giriş Alanları */
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    input, select {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-bright);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent-green);
+    }
+
+    input::placeholder {
+      color: #4b6082;
+    }
+
+    /* Kaba varsayılan tarayıcı yukarı/aşağı oklarını gizleme */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* Modern Stepper Kapsayıcı ve Butonları */
+    .modern-number-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .modern-number-wrapper:focus-within {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green-glow);
+    }
+
+    .modern-number-wrapper input {
+      border: none !important;
+      background: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
+      text-align: center;
+      padding: 10px 6px;
+      width: 100%;
+    }
+
+    .btn-stepper {
+      background: transparent;
+      border: none;
+      color: var(--accent-green);
+      font-size: 1.15rem;
+      font-weight: 800;
+      width: 34px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .btn-stepper:hover {
+      background: rgba(117, 150, 103, 0.15);
+      color: var(--text-bright);
+    }
+
+    .btn-stepper:active {
+      background: var(--accent-green);
+      color: #060a0f;
+    }
+
+    .btn-submit {
+      background: var(--accent-green);
+      border: none;
+      color: #0d161f;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      box-shadow: none;
+    }
+
+    .meals-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .meal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.84rem;
+    }
+
+    .meal-cat {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-right: 6px;
+    }
+
+    .meal-name {
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+
+    .meal-cal-val {
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-left: auto;
+      padding-right: 10px;
+    }
+
+    .btn-remove {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .btn-remove:hover { color: var(--danger); }
+
+    /* ==============================================
+       4. KİLO GRAFİĞİ & GEÇMİŞ EKRANI (Ayrı Görünüm)
+       ============================================== */
+    .chart-container-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-green);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    #weightCanvas {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .weight-log-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .weight-log-val {
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================== -->
+  <!-- ÜST BAR                                        -->
+  <!-- ============================================== -->
+  <header>
+    <div class="brand-logo" onclick="navigateTo('hub')">
+      ONNESS<span class="dot">.</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button id="btnHeaderLang" class="btn-lang-toggle" onclick="toggleLanguage()" title="Dili Değiştir / Change Language">
+        🌐 <span id="disp-lang-text">TR</span>
+      </button>
+      <button id="btnHeaderHome" class="btn-nav-home" onclick="navigateTo('hub')" style="display: none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span data-i18n="home">Ana Sayfa</span>
+      </button>
+      <button id="btnHeaderSettings" class="btn-nav-settings" onclick="openSettingsModal()" title="Ayarlar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span data-i18n="settings">Ayarlar</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================================== -->
+    <!-- 1. MERKEZİ GİRİŞ EKRANI (SPOR & BESLENME)       -->
+    <!-- ============================================== -->
+    <div id="screen-hub" class="view-screen active">
+      <div class="hub-header">
+        <h1 class="hub-title" data-i18n="hubTitle">Evde Dönüşüm</h1>
+        <p class="hub-subtitle" data-i18n="hubSubtitle">Sırt, Omuz, Kol & Karın • Kalori & Kilo Takibi</p>
+      </div>
+
+      <div class="portals-wrapper">
+        <!-- SPOR PORTALI -->
+        <div class="portal-card" onclick="navigateTo('workout')">
+          <div class="portal-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 18h12M4 14h16M7 10h10M9 6h6"/></svg>
+          </div>
+          <div class="portal-info">
+            <div class="portal-name">
+              <span data-i18n="workoutPortal">SPOR</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="portal-tag" data-i18n="workoutPortalTag">6 Aylık Aşamalı Dönüşüm (24 Hafta)</div>
+            <div class="portal-desc" data-i18n="workoutPortalDesc">Temelden başlayıp her hafta kademeli zorlaşan profesyonel periyotlama ve sayaçlar.</div>
+          </div>
+        </div>
+
+        <!-- BESLENME PORTALI -->
+        <div class="portal-card" onclick="navigateTo('nutrition')">
+          <div class="portal-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <div class="portal-info">
+            <div class="portal-name">
+              <span data-i18n="nutritionPortal">BESLENME</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="portal-tag" data-i18n="nutritionPortalTag">Kalori & Kilo Takibi</div>
+            <div class="portal-desc" data-i18n="nutritionPortalDesc">Öğün girişi, makrolar, ayarlanabilir hedef kilo ve görsel kilo değişim grafiği.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 2. SPOR MODÜLÜ (1 AYLIK / 4 HAFTA)             -->
+    <!-- ============================================== -->
+    <div id="screen-workout" class="view-screen">
+      <!-- Ana Ekrana Geri Dön Butonu -->
+      <div style="margin-bottom: 14px;">
+        <button class="btn-back" onclick="navigateTo('hub')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="backToHub">Ana Ekrana Dön</span>
+        </button>
+      </div>
+
+      <!-- 6 Aylık Program: 6 Ay Seçici Rayı -->
+      <div class="month-selector-wrapper">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding: 0 2px;">
+          <span style="font-size: 0.78rem; font-weight: 800; color: var(--text-bright);" data-i18n="periodization">6 Aylık Periyotlama</span>
+          <span id="disp-active-month-badge" class="badge-pill" style="font-size: 0.68rem;">1. AY: TEMEL ADAPTASYON</span>
+        </div>
+        <div class="month-scroll-track" id="months-track-container">
+          <!-- JS ile 1-6 ay doldurulur -->
+        </div>
+      </div>
+
+      <!-- Hafta Seçici Sekmeler (Ay İçi 4 Hafta) -->
+      <div class="week-selector">
+        <button class="week-tab active" id="week-tab-1" onclick="selectWeek(1)">1. Hafta</button>
+        <button class="week-tab" id="week-tab-2" onclick="selectWeek(2)">2. Hafta</button>
+        <button class="week-tab" id="week-tab-3" onclick="selectWeek(3)">3. Hafta</button>
+        <button class="week-tab" id="week-tab-4" onclick="selectWeek(4)">4. Hafta</button>
+      </div>
+
+      <div class="week-overview-card">
+        <div class="section-title" style="margin-bottom: 6px;">
+          <span id="disp-week-title" class="week-title">1. Hafta: Temel Başlangıç (Hafif Seviye)</span>
+          <span id="disp-week-progress-badge" class="badge-pill">0 / 7 Gün</span>
+        </div>
+        <div id="disp-week-desc" class="week-focus-text">Hacim ve doğru biyomekanik formu oturtma dönemi.</div>
+        <div class="progress-bar-bg">
+          <div id="bar-week-progress" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Zorluk Seviyesi Seçici (Kolay / Orta / Zor) -->
+      <div class="card" style="padding: 12px 16px; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-bright);" data-i18n="difficulty">Zorluk Seviyesi</span>
+          <span id="disp-difficulty-badge" class="badge-pill" style="font-size: 0.68rem;">KOLAY MOD</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+          <button id="diff-btn-easy" class="diff-btn active" onclick="setWorkoutDifficulty('easy')" data-i18n="easy">Kolay</button>
+          <button id="diff-btn-medium" class="diff-btn" onclick="setWorkoutDifficulty('medium')" data-i18n="medium">Orta</button>
+          <button id="diff-btn-hard" class="diff-btn" onclick="setWorkoutDifficulty('hard')" data-i18n="hard">Zor</button>
+        </div>
+      </div>
+
+      <!-- Haftayı Sıfırla Butonu (Zorluk Seviyesinin Hemen Altında) -->
+      <div style="margin-bottom: 14px; text-align: center;">
+        <button class="btn-edit-target" onclick="resetCurrentWeekProgress()" style="width: 100%; padding: 10px; font-size: 0.82rem; color: var(--accent-green); font-weight: 800;" data-i18n="resetWeek">
+          Bu Haftayı Sıfırla
+        </button>
+      </div>
+
+      <!-- Günlük Egzersiz Kartları Konteyneri -->
+      <div id="workout-days-container"></div>
+    </div>
+
+    <!-- 2.1 SPOR: GÜN DETAYI (HAREKET LİSTESİ) -->
+    <div id="screen-workout-detail" class="view-screen">
+      <div class="top-action-bar">
+        <button class="btn-back" onclick="navigateTo('workout')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="weeklyPlan">Haftalık Plan</span>
+        </button>
+        <span id="detail-day-header-badge" class="badge-pill">GÜNÜN HAREKETLERİ</span>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;" data-i18n="clickExerciseHint">Detaylarını görmek, duruş pozisyonunu incelemek ve setleri kaydetmek için harekete tıklayın:</div>
+      <div id="day-exercises-container"></div>
+    </div>
+
+    <!-- 2.2 SPOR: TEK HAREKET ÖZEL SAYFASI -->
+    <div id="screen-exercise-single" class="view-screen">
+      <div class="top-action-bar">
+        <button class="btn-back" onclick="backToDayDetail()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="backToDay">Güne Dön</span>
+        </button>
+        <span id="single-exercise-badge" class="badge-pill">HAREKET DETAYI</span>
+      </div>
+      <div id="single-exercise-container"></div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 3. BESLENME MODÜLÜ                             -->
+    <!-- ============================================== -->
+    <div id="screen-nutrition" class="view-screen">
+      <!-- Ana Ekrana Geri Dön Butonu -->
+      <div style="margin-bottom: 14px;">
+        <button class="btn-back" onclick="navigateTo('hub')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="backToHub">Ana Ekrana Dön</span>
+        </button>
+      </div>
+
+      <!-- Kalori Özeti -->
+      <div class="cal-hero-card">
+        <div class="section-title" style="margin-bottom: 10px;">
+          <span data-i18n="dailyCalorieBalance">Günlük Kalori Dengesi</span>
+          <button class="btn-edit-target" onclick="openTargetModal('calorie')" data-i18n="changeTarget">Hedef Değiştir</button>
+        </div>
+        <div class="cal-metrics-grid">
+          <div class="metric-box" onclick="openTargetModal('calorie')" style="cursor: pointer;" title="Hedefi Değiştir">
+            <div class="metric-val" id="disp-cal-target">2100</div>
+            <div class="metric-sub" id="disp-sub-target" data-i18n="targetKcal">Hedef Kcal ✎</div>
+          </div>
+          <div class="metric-box" style="border-color: var(--accent-green);">
+            <div class="metric-val highlight" id="disp-cal-remain">2100</div>
+            <div class="metric-sub" data-i18n="remaining">Kalan</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val" id="disp-cal-consumed">0</div>
+            <div class="metric-sub" data-i18n="consumed">Alınan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Makrolar -->
+      <div class="macros-row">
+        <div class="macro-card">
+          <div class="macro-title" data-i18n="protein">PROTEİN</div>
+          <div class="macro-amount"><span id="disp-macro-p">0</span>g</div>
+          <div class="macro-meter"><div id="fill-macro-p" class="macro-fill"></div></div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-title" data-i18n="carbs">KARBONHİDRAT</div>
+          <div class="macro-amount"><span id="disp-macro-c">0</span>g</div>
+          <div class="macro-meter"><div id="fill-macro-c" class="macro-fill"></div></div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-title" data-i18n="fat">YAĞ</div>
+          <div class="macro-amount"><span id="disp-macro-f">0</span>g</div>
+          <div class="macro-meter"><div id="fill-macro-f" class="macro-fill"></div></div>
+        </div>
+      </div>
+
+      <!-- Kilo & Hedef Özet Çubuğu -->
+      <div class="weight-summary-card">
+        <div>
+          <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700;" data-i18n="currentVsTarget">GÜNCEL / HEDEF KİLO</div>
+          <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+            <span style="font-size: 1.3rem; font-weight: 900; color: var(--text-bright);" id="disp-curr-weight-summary">-- kg</span>
+            <span style="font-size: 0.85rem; color: var(--accent-green); font-weight: 800;" id="disp-target-weight-summary">Hedef: 75.0 kg</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn-edit-target" onclick="openTargetModal('weight')" data-i18n="changeTarget">Hedef Değiştir</button>
+          <button class="btn-view-graph" onclick="navigateTo('weight-graph')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="weightGraphBtn">Kilo Grafiği</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hızlı Kilo Girişi (Tek Satır) -->
+      <div class="card" style="padding: 12px 16px;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;" data-i18n="quickWeightTitle">Bugünkü Tartıyı Kaydet:</div>
+        <div class="input-row" style="margin-bottom: 0;">
+          <div class="modern-number-wrapper" style="flex: 1;">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-quick-weight', -0.1, 1)">−</button>
+            <input type="number" step="0.1" id="input-quick-weight" placeholder="Kilo (örn: 78.4)">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-quick-weight', 0.1, 1)">+</button>
+          </div>
+          <button class="btn-submit" onclick="handleQuickWeightLog()" data-i18n="save">Kaydet</button>
+        </div>
+      </div>
+
+      <!-- Öğün Ekleme Formu -->
+      <div class="card">
+        <div class="section-title">
+          <span data-i18n="mealEntry">Öğün Girişi</span>
+          <button type="button" id="btn-quick-add" class="badge-pill" onclick="openQuickMealModal()" style="cursor: pointer; background: rgba(117, 150, 103, 0.22); border: 1.5px solid var(--accent-green); color: var(--accent-green); font-size: 0.78rem; font-weight: 800; padding: 6px 14px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px; user-select: none;">
+            <span>★</span> <span data-i18n="quickAdd">Favori Öğünlerim</span>
+          </button>
+        </div>
+        <div class="input-row">
+          <select id="input-meal-cat" style="width: 38%;">
+            <option value="Kahvaltı">Kahvaltı</option>
+            <option value="Öğle">Öğle</option>
+            <option value="Akşam">Akşam</option>
+            <option value="Ara Öğün">Ara Öğün</option>
+          </select>
+          <input type="text" id="input-meal-desc" placeholder="Yiyecek adı (örn: Yulaf & Muz)" style="flex: 1;">
+        </div>
+        <div class="input-row">
+          <div class="modern-number-wrapper" style="width: 48%;">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-meal-cal', -50, 0)">−</button>
+            <input type="number" id="input-meal-cal" placeholder="Kalori (kcal)">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-meal-cal', 50, 0)">+</button>
+          </div>
+          <div class="modern-number-wrapper" style="width: 32%;">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-meal-protein', -5, 0)">−</button>
+            <input type="number" id="input-meal-protein" placeholder="Protein (g)">
+            <button type="button" class="btn-stepper" onclick="stepNumberInput('input-meal-protein', 5, 0)">+</button>
+          </div>
+          <button class="btn-submit" onclick="handleMealAdd()" data-i18n="add">Ekle</button>
+        </div>
+        <div class="meals-stack" id="meals-list-container"></div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 4. KİLO GRAFİĞİ & GEÇMİŞİ EKRANI (Ayrı Görünüm) -->
+    <!-- ============================================== -->
+    <div id="screen-weight-graph" class="view-screen">
+      <div class="top-action-bar">
+        <button class="btn-back" onclick="navigateTo('nutrition')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="backToNutrition">Beslenmeye Dön</span>
+        </button>
+        <span class="badge-pill" data-i18n="progressGraphBadge">GELİŞİM GRAFİĞİ</span>
+      </div>
+
+      <!-- Canvas Çizim Alanı -->
+      <div class="chart-container-box">
+        <div class="section-title" style="margin-bottom: 8px;">
+          <span data-i18n="weightTrend">Kilo Değişim Grafiği</span>
+          <span style="font-size: 0.75rem; color: var(--accent-green); font-weight: 700;" id="chart-target-indicator">Hedef: 75.0 kg</span>
+        </div>
+        <canvas id="weightCanvas"></canvas>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background: var(--accent-green);"></div> <span data-i18n="loggedWeights">Kayıtlı Kilolar</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan); border-radius: 0; height: 2px;"></div> <span data-i18n="targetLine">Hedef Çizgisi</span></div>
+        </div>
+      </div>
+
+      <!-- Kilo Tartı Geçmişi Listesi -->
+      <div class="card">
+        <div class="section-title">
+          <span data-i18n="weightHistoryTitle">Tartı Geçmişi</span>
+          <span class="badge-pill" id="log-count-badge">0 Kayıt</span>
+        </div>
+        <div id="weight-logs-container"></div>
+        <!-- Sayfalama (Pagination) -->
+        <div id="weight-pagination" style="display: none; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle);">
+          <button class="btn-back" id="btn-prev-page" onclick="changeWeightPage(-1)" style="padding: 6px 12px; font-size: 0.75rem;">← <span data-i18n="prev">Önceki</span></button>
+          <span id="disp-weight-page" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">Sayfa 1 / 1</span>
+          <button class="btn-back" id="btn-next-page" onclick="changeWeightPage(1)" style="padding: 6px 12px; font-size: 0.75rem;"><span data-i18n="next">Sonraki</span> →</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hedef Düzenleme Modalı (Kalori & Kilo) -->
+  <div id="custom-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 200; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 2px solid var(--accent-green); border-radius: 20px; width: 100%; max-width: 380px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+      <div style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 6px;" id="modal-title">Hedef Ayarla</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;" id="modal-desc">Lütfen yeni hedef değerini girin.</div>
+      <div class="modern-number-wrapper" style="width: 100%; margin-bottom: 16px; border: 1.5px solid var(--border-green);">
+        <button type="button" class="btn-stepper" style="width: 44px; height: 46px; font-size: 1.3rem;" onclick="stepModalInput(-1)">−</button>
+        <input type="number" step="0.1" id="modal-input" style="font-size: 1.25rem; padding: 10px; font-weight: 800; color: var(--accent-green);" placeholder="Değer">
+        <button type="button" class="btn-stepper" style="width: 44px; height: 46px; font-size: 1.3rem;" onclick="stepModalInput(1)">+</button>
+      </div>
+      <div style="display: flex; gap: 8px; justify-content: flex-end;">
+        <button class="btn-back" onclick="closeTargetModal()" style="border: 1px solid var(--border-subtle); color: var(--text-muted);" data-i18n="cancel">İptal</button>
+        <button class="btn-submit" onclick="saveTargetModal()" data-i18n="save">Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ayarlar Modalı -->
+  <div id="settings-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 240; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 2px solid var(--accent-green); border-radius: 20px; width: 100%; max-width: 400px; padding: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.85);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div style="font-size: 1.15rem; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.3"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span data-i18n="appSettingsTitle">Uygulama Ayarları</span>
+        </div>
+        <button class="btn-remove" onclick="closeSettingsModal()" style="font-size: 1.4rem;">×</button>
+      </div>
+
+      <!-- Ayar: Dil Seçimi -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--text-bright);" data-i18n="languageSetting">Uygulama Dili</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="languageSettingDesc">Türkçe veya English</div>
+        </div>
+        <select id="setting-language" style="padding: 6px 8px; font-size: 0.8rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--accent-green); font-weight: 800;" onchange="setLanguage(this.value)">
+          <option value="tr">Türkçe (TR)</option>
+          <option value="en">English (EN)</option>
+        </select>
+      </div>
+
+      <!-- Ayar: Ses Efektleri -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--text-bright);" data-i18n="soundEffects">Sesli Uyarılar</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="soundEffectsDesc">Set bitişi ve sayaç sinyalleri</div>
+        </div>
+        <input type="checkbox" id="setting-sound" checked style="accent-color: var(--accent-green); width: 18px; height: 18px; cursor: pointer;" onchange="updateAppSettings()">
+      </div>
+
+      <!-- Ayar: Dinlenme Süresi -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--text-bright);" data-i18n="restTimeTitle">Dinlenme Süresi</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="restTimeDesc">Set arası standart mola süresi</div>
+        </div>
+        <select id="setting-rest-time" style="padding: 6px 8px; font-size: 0.8rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--accent-green); font-weight: 800;" onchange="updateAppSettings()">
+          <option value="30">30 sn</option>
+          <option value="45">45 sn</option>
+          <option value="60">60 sn</option>
+          <option value="90">90 sn</option>
+        </select>
+      </div>
+
+      <!-- Ayar: Veri Sıfırlama -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--danger);" data-i18n="dataManagement">Veri & Sıfırlama</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Tamamlanan tüm setleri temizle</div>
+        </div>
+        <button class="btn-back" onclick="confirmResetAllData()" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.4); font-size: 0.75rem; padding: 6px 10px;">
+          Sıfırla
+        </button>
+      </div>
+
+      <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+        <button class="btn-submit" onclick="closeSettingsModal()" style="width: 100%;" data-i18n="done">Tamam</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Favori Öğünler Modalı (Özel Favori Ekleme & Seçme) -->
+  <div id="quick-meal-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 300; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 2px solid var(--accent-green); border-radius: 20px; width: 100%; max-width: 440px; max-height: 88vh; display: flex; flex-direction: column; padding: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.85);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div style="font-size: 1.15rem; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 6px;">
+          <span style="color: var(--accent-green);">★</span>
+          <span data-i18n="quickMealModalTitle">Favori Öğünlerim</span>
+        </div>
+        <button class="btn-remove" onclick="closeQuickMealModal()" style="font-size: 1.4rem;">×</button>
+      </div>
+
+      <!-- Yeni Favori Öğün Ekleme Alanı (Favori Öğün +) -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-green); border-radius: 14px; padding: 12px; margin-bottom: 12px;">
+        <div style="font-size: 0.78rem; font-weight: 800; color: var(--accent-green); margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+          <span>+</span> <span data-i18n="addFavHeading">Favori Öğün Ekle (+)</span>
+        </div>
+        <div class="input-row" style="margin-bottom: 8px;">
+          <select id="input-fav-cat" style="width: 40%; font-size: 0.78rem; padding: 8px;">
+            <option value="Kahvaltı">Kahvaltı</option>
+            <option value="Öğle">Öğle</option>
+            <option value="Akşam">Akşam</option>
+            <option value="Ara Öğün">Ara Öğün</option>
+          </select>
+          <input type="text" id="input-fav-desc" placeholder="Öğün adı (örn: Yulaf & Muz)" style="flex: 1; font-size: 0.78rem; padding: 8px;">
+        </div>
+        <div class="input-row" style="margin-bottom: 0;">
+          <div class="modern-number-wrapper" style="width: 48%;">
+            <button type="button" class="btn-stepper" style="height: 34px; width: 30px;" onclick="stepNumberInput('input-fav-cal', -50, 0)">−</button>
+            <input type="number" id="input-fav-cal" placeholder="Kalori (kcal)" style="font-size: 0.78rem; padding: 6px;">
+            <button type="button" class="btn-stepper" style="height: 34px; width: 30px;" onclick="stepNumberInput('input-fav-cal', 50, 0)">+</button>
+          </div>
+          <div class="modern-number-wrapper" style="width: 32%;">
+            <button type="button" class="btn-stepper" style="height: 34px; width: 30px;" onclick="stepNumberInput('input-fav-prot', -5, 0)">−</button>
+            <input type="number" id="input-fav-prot" placeholder="Protein (g)" style="font-size: 0.78rem; padding: 6px;">
+            <button type="button" class="btn-stepper" style="height: 34px; width: 30px;" onclick="stepNumberInput('input-fav-prot', 5, 0)">+</button>
+          </div>
+          <button class="btn-submit" onclick="saveNewFavoriteMeal()" style="padding: 8px 12px; font-size: 0.78rem;" data-i18n="saveFavBtn">Favorilere Kaydet</button>
+        </div>
+      </div>
+
+      <div style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px;" data-i18n="favListHint">
+        Kayıtlı favori öğünlerinden birine dokunarak günlüğüne anında ekle:
+      </div>
+      <div id="quick-meals-list" style="overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; min-height: 120px;">
+        <!-- JS ile kullanıcının kendi favori öğünleri listelenir -->
+      </div>
+      <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+        <button class="btn-back" onclick="closeQuickMealModal()" style="border: 1px solid var(--border-subtle); color: var(--text-muted); width: 100%;" data-i18n="cancel">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Haftayı Sıfırla Onay Modalı -->
+  <div id="reset-confirm-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 200; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 2px solid var(--danger); border-radius: 20px; width: 100%; max-width: 380px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); text-align: center;">
+      <div style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-bottom: 8px;" data-i18n="resetWeekModalTitle">Haftayı Sıfırla</div>
+      <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.45;" id="reset-confirm-desc">
+        Bu haftaya ait tüm tamamlanan setler sıfırlanacak. Devam etmek istiyor musun?
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button class="btn-back" onclick="closeResetModal()" style="border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 9px 18px;" data-i18n="cancel">İptal</button>
+        <button class="btn-submit" onclick="executeResetWeek()" style="background: var(--danger); box-shadow: 0 0 14px rgba(239, 68, 68, 0.4); padding: 9px 18px;" data-i18n="yesReset">Evet, Sıfırla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Görsel Değiştirme Modalı -->
+  <div id="media-custom-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 250; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 2px solid var(--accent-green); border-radius: 20px; width: 100%; max-width: 400px; padding: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.85);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div style="font-size: 1.1rem; font-weight: 900; color: #fff;" id="media-modal-exercise-name">Görsel Seç</div>
+        <button class="btn-remove" onclick="closeMediaModal()" style="font-size: 1.4rem;">×</button>
+      </div>
+      <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px;" data-i18n="mediaModalDesc">Kendi fotoğrafını veya bir GIF yükleyebilir, ya da doğrudan görsel linki yapıştırabilirsin.</div>
+
+      <!-- Dosya Yükleme (Galeriden / Cihazdan) -->
+      <label style="display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(117, 150, 103, 0.15); border: 1.5px dashed var(--accent-green); border-radius: 14px; padding: 14px; cursor: pointer; color: var(--text-bright); font-size: 0.82rem; font-weight: 800; margin-bottom: 12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span data-i18n="chooseFromGallery">Galeriden / Dosyadan Seç</span>
+        <input type="file" id="media-file-input" accept="image/*" style="display: none;" onchange="handleMediaFileUpload(event)">
+      </label>
+
+      <!-- URL Girişi -->
+      <div style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;" data-i18n="orImageUrl">Veya Görsel URL'si:</div>
+      <input type="text" id="media-url-input" placeholder="https://ornek.com/hareket.jpg" style="width: 100%; margin-bottom: 14px; font-size: 0.82rem; padding: 10px;">
+
+      <div style="display: flex; gap: 8px; justify-content: space-between;">
+        <button class="btn-back" onclick="resetExerciseMediaToDefault()" style="color: var(--danger); border-color: rgba(239,68,68,0.3); font-size: 0.75rem;" data-i18n="resetToDefault">Varsayılana Dön</button>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn-back" onclick="closeMediaModal()" style="border: 1px solid var(--border-subtle); color: var(--text-muted);" data-i18n="cancel">İptal</button>
+          <button class="btn-submit" onclick="saveMediaUrl()" data-i18n="save">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dinlenme Sayacı Overlay -->
+  <div id="rest-overlay">
+    <div class="rest-meta">
+      <span class="rest-label" data-i18n="restTimerLabel">Dinlenme Sayacı</span>
+      <span class="rest-time" id="rest-clock-val">00:45</span>
+    </div>
+    <div class="rest-actions">
+      <button class="btn-rest-adj" onclick="modifyRestTimer(-15)">-15s</button>
+      <button class="btn-rest-adj" onclick="modifyRestTimer(15)">+15s</button>
+      <button class="btn-rest-skip" onclick="closeRestTimer()" data-i18n="finishRest">Bitir</button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       ÇOK DİLLİ SİSTEM / I18N DICTIONARY (TR & EN)
+       ========================================================= */
+    const I18N = {
+      tr: {
+        home: "Ana Sayfa",
+        settings: "Ayarlar",
+        hubTitle: "Evde Dönüşüm",
+        hubSubtitle: "Sırt, Omuz, Kol & Karın • Kalori & Kilo Takibi",
+        workoutPortal: "SPOR",
+        workoutPortalTag: "6 Aylık Aşamalı Dönüşüm (24 Hafta)",
+        workoutPortalDesc: "Temelden başlayıp her hafta kademeli zorlaşan profesyonel periyotlama ve sayaçlar.",
+        nutritionPortal: "BESLENME",
+        nutritionPortalTag: "Kalori & Kilo Takibi",
+        nutritionPortalDesc: "Öğün girişi, makrolar, ayarlanabilir hedef kilo ve görsel kilo değişim grafiği.",
+        backToHub: "Ana Ekrana Dön",
+        periodization: "6 Aylık Periyotlama",
+        difficulty: "Zorluk Seviyesi",
+        easy: "Kolay",
+        medium: "Orta",
+        hard: "Zor",
+        easyBadge: "KOLAY MOD",
+        mediumBadge: "ORTA MOD",
+        hardBadge: "ZOR MOD",
+        resetWeek: "Bu Haftayı Sıfırla",
+        weeklyPlan: "Haftalık Plan",
+        dayExercisesBadge: "GÜNÜN HAREKETLERİ",
+        clickExerciseHint: "Detaylarını görmek, duruş pozisyonunu incelemek ve setleri kaydetmek için harekete tıklayın:",
+        backToDay: "Güne Dön",
+        exerciseDetailBadge: "HAREKET DETAYI",
+        dailyCalorieBalance: "Günlük Kalori Dengesi",
+        changeTarget: "Hedef Değiştir",
+        targetKcal: "Hedef Kcal ✎",
+        remaining: "Kalan",
+        consumed: "Alınan",
+        protein: "PROTEİN",
+        carbs: "KARBONHİDRAT",
+        fat: "YAĞ",
+        currentVsTarget: "GÜNCEL / HEDEF KİLO",
+        weightGraphBtn: "Kilo Grafiği",
+        quickWeightTitle: "Bugünkü Tartıyı Kaydet:",
+        quickWeightPlaceholder: "Kilo (örn: 78.4)",
+        save: "Kaydet",
+        cancel: "İptal",
+        mealEntry: "Öğün Girişi",
+        quickAdd: "Favori Öğünlerim",
+        quickMealModalTitle: "Favori Öğünlerim",
+        addFavHeading: "Favori Öğün Ekle (+)",
+        saveFavBtn: "Favorilere Kaydet",
+        favListHint: "Kayıtlı favori öğünlerinden birine dokunarak günlüğüne anında ekle:",
+        noFavMeals: "Henüz kayıtlı favori öğününüz yok. Yukarıdaki formdan ekleyebilirsiniz.",
+        favFoodPlaceholder: "Öğün adı (örn: Yulaf & Muz)",
+        mealFoodPlaceholder: "Yiyecek adı (örn: Yulaf & Muz)",
+        mealCalPlaceholder: "Kalori (kcal)",
+        mealProtPlaceholder: "Protein (g)",
+        add: "Ekle",
+        backToNutrition: "Beslenmeye Dön",
+        progressGraphBadge: "GELİŞİM GRAFİĞİ",
+        weightTrend: "Kilo Değişim Grafiği",
+        loggedWeights: "Kayıtlı Kilolar",
+        targetLine: "Hedef Çizgisi",
+        weightHistoryTitle: "Tartı Geçmişi",
+        prev: "Önceki",
+        next: "Sonraki",
+        appSettingsTitle: "Uygulama Ayarları",
+        languageSetting: "Uygulama Dili",
+        languageSettingDesc: "Türkçe veya English",
+        soundEffects: "Sesli Uyarılar",
+        soundEffectsDesc: "Set bitişi ve sayaç sinyalleri",
+        restTimeTitle: "Dinlenme Süresi",
+        restTimeDesc: "Set arası standart mola süresi",
+        dataManagement: "Veri & Sıfırlama",
+        resetAllDataBtn: "Tüm Antrenman Verilerini Sıfırla",
+        done: "Tamam",
+        resetWeekModalTitle: "Haftayı Sıfırla",
+        yesReset: "Evet, Sıfırla",
+        mediaModalDesc: "Kendi fotoğrafını veya bir GIF yükleyebilir, ya da doğrudan görsel linki yapıştırabilirsin.",
+        chooseFromGallery: "Galeriden / Dosyadan Seç",
+        orImageUrl: "Veya Görsel URL'si:",
+        resetToDefault: "Varsayılana Dön",
+        restTimerLabel: "Dinlenme Sayacı",
+        finishRest: "Bitir",
+        startSet: "Sete Başla",
+        finishSetAndRest: "Seti Tamamla & Dinlen",
+        allSetsCompleted: "Tüm Setler Tamamlandı!",
+        trainerCuesTitle: "Antrenörün Püf Noktaları",
+        yourPersonalNote: "SENİN BU HAREKETE ÖZEL NOTUN:",
+        personalNotePlaceholder: "Örn: 2. sette elleri biraz daha içeri aldım, sol omuz rahat etti...",
+        changePhoto: "Görsel Değiştir",
+        posturePosition: "Duruş Pozisyonu",
+        monthWord: "AY",
+        weekWord: "Hafta",
+        daysCount: "Gün",
+        setWord: "Set",
+        holdWord: "tutuş",
+        repWord: "tekrar",
+        restDay: "Dinlenme",
+        victoryDay: "Zafer",
+        startTimer: "Başlat",
+        stopTimer: "Durdur",
+        timerDone: "Bitti!",
+        noWeightLogs: "Henüz kilo kaydı bulunmuyor.",
+        addAtLeastOneWeight: "Grafik için en az bir kilo kaydı ekleyin.",
+        resetAllConfirm: "Tüm 6 aylık tamamlanan set kayıtlarını sıfırlamak istediğinden emin misin?",
+        meals: {
+          breakfast: "Kahvaltı",
+          lunch: "Öğle",
+          dinner: "Akşam",
+          snack: "Ara Öğün"
+        }
+      },
+      en: {
+        home: "Home",
+        settings: "Settings",
+        hubTitle: "Home Transformation",
+        hubSubtitle: "Back, Shoulders, Arms & Core • Calorie & Weight Tracking",
+        workoutPortal: "WORKOUT",
+        workoutPortalTag: "6-Month Phased Transformation (24 Weeks)",
+        workoutPortalDesc: "From beginner fundamentals to progressive overload with intelligent timers.",
+        nutritionPortal: "NUTRITION",
+        nutritionPortalTag: "Calorie & Weight Tracking",
+        nutritionPortalDesc: "Meal logger, macros, customizable target weight and interactive progress charts.",
+        backToHub: "Back to Home",
+        periodization: "6-Month Periodization",
+        difficulty: "Difficulty Level",
+        easy: "Easy",
+        medium: "Medium",
+        hard: "Hard",
+        easyBadge: "EASY MODE",
+        mediumBadge: "MEDIUM MODE",
+        hardBadge: "HARD MODE",
+        resetWeek: "Reset This Week",
+        weeklyPlan: "Weekly Plan",
+        dayExercisesBadge: "TODAY'S EXERCISES",
+        clickExerciseHint: "Tap an exercise to view form posture, coach tips, and log sets:",
+        backToDay: "Back to Day",
+        exerciseDetailBadge: "EXERCISE DETAIL",
+        dailyCalorieBalance: "Daily Calorie Balance",
+        changeTarget: "Edit Target",
+        targetKcal: "Target Kcal ✎",
+        remaining: "Remaining",
+        consumed: "Consumed",
+        protein: "PROTEIN",
+        carbs: "CARBS",
+        fat: "FAT",
+        currentVsTarget: "CURRENT / TARGET WEIGHT",
+        weightGraphBtn: "Weight Chart",
+        quickWeightTitle: "Log Today's Weight:",
+        quickWeightPlaceholder: "Weight (e.g. 78.4)",
+        save: "Save",
+        cancel: "Cancel",
+        mealEntry: "Log Meal",
+        quickAdd: "Favorite Meals",
+        quickMealModalTitle: "Favorite Meals",
+        addFavHeading: "Add Favorite Meal (+)",
+        saveFavBtn: "Save to Favorites",
+        favListHint: "Tap any saved favorite meal below to log it into your daily intake:",
+        noFavMeals: "No favorite meals saved yet. You can add one using the form above.",
+        favFoodPlaceholder: "Meal name (e.g. Oatmeal & Banana)",
+        mealFoodPlaceholder: "Food name (e.g. Oatmeal & Banana)",
+        mealCalPlaceholder: "Calories (kcal)",
+        mealProtPlaceholder: "Protein (g)",
+        add: "Add",
+        backToNutrition: "Back to Nutrition",
+        progressGraphBadge: "PROGRESS CHART",
+        weightTrend: "Weight Progress Trend",
+        loggedWeights: "Logged Weights",
+        targetLine: "Target Line",
+        weightHistoryTitle: "Weigh-in History",
+        prev: "Prev",
+        next: "Next",
+        appSettingsTitle: "App Settings",
+        languageSetting: "App Language",
+        languageSettingDesc: "English or Turkish",
+        soundEffects: "Sound Alerts",
+        soundEffectsDesc: "Beeps for sets & countdown timers",
+        restTimeTitle: "Rest Interval",
+        restTimeDesc: "Default recovery time between sets",
+        dataManagement: "Data & Reset",
+        resetAllDataBtn: "Reset All Workout Data",
+        done: "Done",
+        resetWeekModalTitle: "Reset Week",
+        yesReset: "Yes, Reset",
+        mediaModalDesc: "Upload your custom photo/GIF from your gallery, or paste an image link.",
+        chooseFromGallery: "Select from Gallery / Device",
+        orImageUrl: "Or Image URL:",
+        resetToDefault: "Reset to Default",
+        restTimerLabel: "Rest Timer",
+        finishRest: "Skip",
+        startSet: "Start Set",
+        finishSetAndRest: "Complete Set & Rest",
+        allSetsCompleted: "All Sets Completed!",
+        trainerCuesTitle: "Coach Form Cues",
+        yourPersonalNote: "YOUR PERSONAL NOTE FOR THIS EXERCISE:",
+        personalNotePlaceholder: "e.g. Brought hands closer on 2nd set, relieved shoulder pressure...",
+        changePhoto: "Change Media",
+        posturePosition: "Form Posture",
+        monthWord: "MONTH",
+        weekWord: "Week",
+        daysCount: "Days",
+        setWord: "Set",
+        holdWord: "hold",
+        repWord: "reps",
+        restDay: "Rest",
+        victoryDay: "Victory",
+        startTimer: "Start",
+        stopTimer: "Stop",
+        timerDone: "Done!",
+        noWeightLogs: "No weigh-in records found yet.",
+        addAtLeastOneWeight: "Log at least one weigh-in to display the chart.",
+        resetAllConfirm: "Are you sure you want to reset all 6 months of completed set records?",
+        meals: {
+          breakfast: "Breakfast",
+          lunch: "Lunch",
+          dinner: "Dinner",
+          snack: "Snack"
+        }
+      }
+    };
+
+    let currentLang = loadLocal('app_lang', 'tr');
+
+    function t(key) {
+      const langObj = I18N[currentLang] || I18N.tr;
+      return langObj[key] || I18N.tr[key] || key;
+    }
+
+    function setLanguage(lang) {
+      if (lang !== 'tr' && lang !== 'en') return;
+      currentLang = lang;
+      saveLocal('app_lang', lang);
+
+      // Header ve dropdown durumlarını güncelle (Aktif dili doğrudan gösterir)
+      const langTextEl = document.getElementById('disp-lang-text');
+      if (langTextEl) langTextEl.textContent = lang === 'tr' ? 'TR' : 'EN';
+      const langSelect = document.getElementById('setting-language');
+      if (langSelect) langSelect.value = lang;
+
+      // Sabit data-i18n etiketlerini güncelle
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (I18N[currentLang] && I18N[currentLang][k]) {
+          el.textContent = I18N[currentLang][k];
+        }
+      });
+
+      // Dinamik input placeholder'ları güncelle
+      const quickWInput = document.getElementById('input-quick-weight');
+      if (quickWInput) quickWInput.placeholder = t('quickWeightPlaceholder');
+      const mealDescInput = document.getElementById('input-meal-desc');
+      if (mealDescInput) mealDescInput.placeholder = t('mealFoodPlaceholder');
+      const mealCalInput = document.getElementById('input-meal-cal');
+      if (mealCalInput) mealCalInput.placeholder = t('mealCalPlaceholder');
+      const mealProtInput = document.getElementById('input-meal-protein');
+      if (mealProtInput) mealProtInput.placeholder = t('mealProtPlaceholder');
+      const favDescInput = document.getElementById('input-fav-desc');
+      if (favDescInput) favDescInput.placeholder = t('favFoodPlaceholder');
+
+      // Öğün kategorilerini güncelle
+      const mealCatSelect = document.getElementById('input-meal-cat');
+      if (mealCatSelect) {
+        mealCatSelect.options[0].text = t('meals').breakfast;
+        mealCatSelect.options[1].text = t('meals').lunch;
+        mealCatSelect.options[2].text = t('meals').dinner;
+        mealCatSelect.options[3].text = t('meals').snack;
+      }
+      const favCatSelect = document.getElementById('input-fav-cat');
+      if (favCatSelect) {
+        favCatSelect.options[0].text = t('meals').breakfast;
+        favCatSelect.options[1].text = t('meals').lunch;
+        favCatSelect.options[2].text = t('meals').dinner;
+        favCatSelect.options[3].text = t('meals').snack;
+      }
+
+      // Aktif ekranları ve rozetleri yeniden çiz
+      setWorkoutDifficulty(workoutDifficulty);
+      if (currentActiveScreen === 'workout') {
+        renderWorkoutDaysScreen();
+      } else if (currentActiveScreen === 'workout-detail' && currentDayRef) {
+        openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+      } else if (currentActiveScreen === 'exercise-single' && currentExerciseRef) {
+        openExerciseSingleView(currentExerciseRef.ex, currentExerciseRef.exIdx, false);
+      } else if (currentActiveScreen === 'nutrition') {
+        renderNutritionScreen();
+      } else if (currentActiveScreen === 'weight-graph') {
+        renderWeightGraphScreen();
+      }
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'tr' ? 'en' : 'tr';
+      setLanguage(nextLang);
+    }
+
+    /* =========================================================
+       6 AYLIK / 24 HAFTALIK PERİYOTLANMIŞ SPOR PROGRAMI VERİSİ
+       (Her ay 4 hafta, 1. haftadan 24. haftaya kademeli zorlaşan yapı)
+       ========================================================= */
+    const YEARLY_PHASES_DATA = {
+      tr: {
+        1: {
+          name: "1. Ay: Temel Adaptasyon & Giriş",
+          desc: "Hafif ve sakatlıksız hacim, eklem sağlığı ve doğru form kalıplarını oturtma.",
+          weeks: {
+            1: { label: "1. Hafta: Temel Adaptasyon & Başlangıç", focus: "Doğru biyomekanik açıları yakalama, eklem ısınması ve sakin tempo." },
+            2: { label: "2. Hafta: Sinir-Kas Aktivasyonu", focus: "Kas-zihin koordinasyonunu kurma, negatif inişleri kontrol etme ve gerilim süresini hissetme." },
+            3: { label: "3. Hafta: Temel Dayanıklılık", focus: "Set aralarındaki toparlanma süresini kısaltarak kas içi laktat direncini başlatma." },
+            4: { label: "4. Hafta: Temel Faz Sonu & Kontrol", focus: "İlk ayın form stabilitesini test etme ve 2. ayın hacim yüklemesine zemin hazırlama." }
+          }
+        },
+        2: {
+          name: "2. Ay: Hacim & Kapasite İnşası",
+          desc: "Kas içi glikojen kapasitesini artırma, set ve tekrar temposunu yukarı çekme.",
+          weeks: {
+            1: { label: "1. Hafta: Hacim Yüklemesi Başlangıç", focus: "Artan tekrar aralıkları ile omuz ve triceps liflerinde hipertrofi uyarısı verme." },
+            2: { label: "2. Hafta: Mekanik Gerilim Artışı", focus: "Hareketlerin tepe noktasında 1 saniye sıkıştırma uygulayarak kas içi kan akışını artırma." },
+            3: { label: "3. Hafta: Kas Yoğunluğu İnşası", focus: "Sırt ve omuzda laktik asit eşiğini yukarı çekip setleri tükenişe yakın tamamlama." },
+            4: { label: "4. Hafta: Hacim Fazı Zirvesi", focus: "2. ayın en yüksek toplam tekrar hacmine ulaşarak üst gövdede belirgin dolgunluk sağlama." }
+          }
+        },
+        3: {
+          name: "3. Ay: Güç, Direnç & V-Taper",
+          desc: "Sırt kanatlarında derinleşme, patlayıcı itişler ve daha uzun süreli statik tutuşlar.",
+          weeks: {
+            1: { label: "1. Hafta: V-Taper Sırt & Güç Açılışı", focus: "Kanat kaslarını (lats) genişleten çekiş açılarına ve omuz genişliğine odaklanma." },
+            2: { label: "2. Hafta: Negatif Tekrar Hakimiyeti", focus: "İniş fazlarını 3 saniyede tamamlayarak derin mikroyırtıklar ve lif uyarımı oluşturma." },
+            3: { label: "3. Hafta: İtiş & Çekiş Güç Artışı", focus: "Pike şınavı ve dips hareketlerinde omuz eklemlerini kilitlemeden maksimum güç aktarımı." },
+            4: { label: "4. Hafta: Güç & Dayanıklılık Zirvesi", focus: "V-Taper sırt estetiğini mühürleme ve 3. ayın nihai güç eşiğini aşma." }
+          }
+        },
+        4: {
+          name: "4. Ay: Yoğunluk & Deltoid Zirvesi",
+          desc: "Omuz ve arka kolda yüksek mekanik gerilim, negatiflerde daha yavaş inişler.",
+          weeks: {
+            1: { label: "1. Hafta: Deltoid İzolasyonu", focus: "Ön, yan ve arka omuz başlarını ayrı açılarla hedefleyip küre formuna yaklaştırma." },
+            2: { label: "2. Hafta: Triceps & Arka Hat Gerilimi", focus: "Kol arkası liflerinde yanma eşiğini zorlama ve itiş gücünü tepeye taşıma." },
+            3: { label: "3. Hafta: Yüksek Yoğunluk Eşiği", focus: "Dinlenme aralıklarında nabzı kontrol edip kasları aralıksız gerilim altında tutma." },
+            4: { label: "4. Hafta: İleri Seviye Omuz & Kol Zirvesi", focus: "Omuz ve triceps keskinliğini belirginleştirip heykel formuna geçiş yapma." }
+          }
+        },
+        5: {
+          name: "5. Ay: Çelik Core & Heykel Tanımlama",
+          desc: "Derin karın duvarı, oblikler ve omurgada maksimum stabilite meydan okuması.",
+          weeks: {
+            1: { label: "1. Hafta: Çelik Karın & Derin Core", focus: "Transverse abdominis ve rektus kaslarını sıkarak karın duvarını içeri kilitleme." },
+            2: { label: "2. Hafta: Oblik & Karın Duvarı Sertliği", focus: "Yan karın liflerini ve serratus kaslarını devreye sokup simetrik hatlar oluşturma." },
+            3: { label: "3. Hafta: Statik Direnç Meydan Okuması", focus: "Hollow body ve plankte titremeyi kontrol altına alıp omurgayı kaya gibi sabitleme." },
+            4: { label: "4. Hafta: Heykel Karın & Omurga Zirvesi", focus: "Karın kaslarında derin parçalanma, korse etkisi ve maksimum gövde sertliği." }
+          }
+        },
+        6: {
+          name: "6. Ay: Elit Atletik Pik & Zirve Kapanış",
+          desc: "6 aylık büyük dönüşümün taçlandığı en üst düzey kas dayanıklılığı ve zafer.",
+          weeks: {
+            1: { label: "1. Hafta: Elit Seviye Açılışı", focus: "Son ayın yüksek tempo açılışı; kusursuz teknikle en sert setleri başlatma." },
+            2: { label: "2. Hafta: Zirve Kas Dayanıklılığı", focus: "Tüm hareketlerde maksimum kapasiteye ulaşarak yorgunluğa karşı üstün direnç gösterme." },
+            3: { label: "3. Hafta: Maksimum Kas Sıkıştırma", focus: "Her tekrarın tepe noktasında 2 saniye kilitlenme ve nihai estetik tanım." },
+            4: { label: "4. Hafta: 6 Aylık Büyük Zafer & Final Form", focus: "24 haftalık şampiyonluk kapanışı! Elde ettiğin güç, estetik sırt, omuz ve çelik karnın zirvesi." }
+          }
+        }
+      },
+      en: {
+        1: {
+          name: "Month 1: Foundational Adaptation",
+          desc: "Injury-free volume, joint health, and mastering strict biomechanical form.",
+          weeks: {
+            1: { label: "Week 1: Fundamentals & Initiation", focus: "Calibrating angles, warming up joints, and pacing steady cadences." },
+            2: { label: "Week 2: Neuromuscular Activation", focus: "Mind-muscle connection, controlled eccentrics, and feeling time under tension." },
+            3: { label: "Week 3: Muscular Endurance", focus: "Shortening recovery intervals to build lactate threshold and stamina." },
+            4: { label: "Week 4: Foundation Milestone Test", focus: "Testing form stability and preparing joints for volume overloading." }
+          }
+        },
+        2: {
+          name: "Month 2: Hypertrophy & Capacity",
+          desc: "Expanding muscular glycogen capacity, increasing repetition thresholds.",
+          weeks: {
+            1: { label: "Week 1: Volume Loading Initiation", focus: "Triggering hypertrophy cues across shoulders and triceps fibers." },
+            2: { label: "Week 2: Mechanical Tension Spike", focus: "Holding 1-second peak contractions to drive cellular blood flow." },
+            3: { label: "Week 3: Muscular Density Build", focus: "Pushing sets near technical failure across lats and shoulders." },
+            4: { label: "Week 4: Volume Phase Peak", focus: "Achieving highest monthly rep volume for pronounced upper body fullness." }
+          }
+        },
+        3: {
+          name: "Month 3: Power, Density & V-Taper",
+          desc: "Widening lat wings, explosive press mechanics, and prolonged static holds.",
+          weeks: {
+            1: { label: "Week 1: V-Taper Back & Power Kickoff", focus: "Targeting latissimus dorsi pull angles to build wide shoulder-to-waist taper." },
+            2: { label: "Week 2: Negative Eccentric Mastery", focus: "3-second lowering tempos for intense micro-tear fiber recruitment." },
+            3: { label: "Week 3: Push & Pull Strength Surge", focus: "Maximum kinetic power in pike push-ups and dips without joint locking." },
+            4: { label: "Week 4: Strength & Stamina Climax", focus: "Locking down athletic back aesthetics and passing the strength milestone." }
+          }
+        },
+        4: {
+          name: "Month 4: High Intensity & 3D Delts",
+          desc: "Peak mechanical tension in deltoids and triceps with slower eccentrics.",
+          weeks: {
+            1: { label: "Week 1: Deltoid Fiber Isolation", focus: "Isolating front, lateral, and rear delts for round 3D cannonball shoulders." },
+            2: { label: "Week 2: Triceps Tension Overload", focus: "Challenging burn limits in posterior arm chains and lockout drive." },
+            3: { label: "Week 3: Sustained Intensity Threshold", focus: "Controlling pulse between rests while maintaining unyielding tension." },
+            4: { label: "Week 4: Advanced Shoulder & Arm Peak", focus: "Sculpting carved definition across upper arm and shoulder caps." }
+          }
+        },
+        5: {
+          name: "Month 5: Steel Core & Definition",
+          desc: "Deep abdominal wall, obliques, and maximal spinal stability.",
+          weeks: {
+            1: { label: "Week 1: Deep Transverse Activation", focus: "Drawing the navel inward and locking the midsection like an iron corset." },
+            2: { label: "Week 2: Oblique & Serratus Hardening", focus: "Engaging side abs and serratus lines for razor-sharp taper definition." },
+            3: { label: "Week 3: Isometric Static Challenge", focus: "Subduing muscle tremors in hollow body and planks to lock a stone-like trunk." },
+            4: { label: "Week 4: Chiseled Core & Spine Peak", focus: "Deep core separation, vacuum effect, and absolute torso stiffness." }
+          }
+        },
+        6: {
+          name: "Month 6: Elite Athletic Peak & Finale",
+          desc: "The pinnacle of 6 months of hard work: peak conditioning and aesthetic glory.",
+          weeks: {
+            1: { label: "Week 1: Elite Phase Grand Opening", focus: "High-tempo kickoff executing the most challenging rep targets with flawless form." },
+            2: { label: "Week 2: Peak Muscular Endurance", focus: "Reaching absolute highest volume capacity and defying systemic fatigue." },
+            3: { label: "Week 3: Maximal Contraction Definition", focus: "2-second peak squeezes at the top of every rep for final aesthetic cuts." },
+            4: { label: "Week 4: 6-Month Victory & Final Physique", focus: "24-week championship culmination! Celebrate your elite strength, V-taper, and iron core." }
+          }
+        }
+      }
+    };
+
+    // 4 Haftalık temel hareket şablonu (Çok Dilli Başlık & Form Açıklamaları)
+    const BASE_MONTH_TEMPLATE = {
+      1: {
+        weekBonusReps: 0,
+        weekBonusHold: 0,
+        days: [
+          {
+            dayName: { tr: "Pazartesi", en: "Monday" },
+            focus: { tr: "Omuz & Triceps İtiş", en: "Shoulders & Triceps Push" },
+            duration: "18-22 dk",
+            exercises: [
+              { name: { tr: "Pike Push-Up (Tepe Şınavı)", en: "Pike Push-Up" }, target: { tr: "Ön & Yan Omuz", en: "Front & Side Delts" }, form: { tr: "Kalçayı 'V' şeklinde yukarı it. Başını kontrollü olarak ellerin biraz ilerisine indir.", en: "Elevate hips into a 'V' shape. Lower crown of head slightly ahead of hands." }, sets: 3, reps: "5-6", type: "rep", postureId: "pike" },
+              { name: { tr: "Sandalye / Sehpa Dips", en: "Chair / Bench Dips" }, target: { tr: "Arka Kol (Triceps)", en: "Triceps" }, form: { tr: "Sırtını sandalyeye yakın tut. Dirsekler hafif bükülene kadar in ve triceps ile it.", en: "Keep back close to bench. Lower until elbows hit ~90 degrees, press up." }, sets: 3, reps: "7-8", type: "rep", postureId: "dips" },
+              { name: { tr: "Diz Üstü Elmas Şınav", en: "Kneeling Diamond Push-Up" }, target: { tr: "Triceps & İç Göğüs", en: "Triceps & Inner Chest" }, form: { tr: "Dizlerin yerde, eller göğüs altında üçgen. Dirsekleri vücuda yakın tutarak in.", en: "Knees grounded, form a diamond with hands below chest. Keep elbows tucked." }, sets: 3, reps: "6-7", type: "rep", postureId: "diamond" }
+            ]
+          },
+          {
+            dayName: { tr: "Salı", en: "Tuesday" },
+            focus: { tr: "Sırt & Postür Çekiş", en: "Back & Posture Pull" },
+            duration: "18-20 dk",
+            exercises: [
+              { name: { tr: "Yerde Havlu Çekişi (Floor Row)", en: "Floor Towel Row" }, target: { tr: "Kanat Kasları (Lats)", en: "Lats & Mid-Back" }, form: { tr: "Yüzüstü yat, havluyu iki yana gerip göğsüne doğru çek.", en: "Lie prone, pull towel apart laterally and row smoothly towards chest." }, sets: 3, reps: "8-9", type: "rep", postureId: "row" },
+              { name: { tr: "Superman Tutuşu", en: "Superman Hold" }, target: { tr: "Alt Sırt & Bel", en: "Lower Back & Glutes" }, form: { tr: "Kollar ve bacakları hafifçe kaldırarak sırt kaslarını sık.", en: "Elevate arms and thighs off floor, squeeze spinal erectors and glutes." }, sets: 3, holdSeconds: 18, type: "timed", postureId: "superman" },
+              { name: { tr: "Y-T-W Kaldırışları", en: "Y-T-W Raises" }, target: { tr: "Arka Omuz & Trapez", en: "Rear Delts & Traps" }, form: { tr: "Yüzüstü yatarken kollarla sırasıyla Y, T, W açıları oluştur.", en: "Lie prone, form Y, T, and W positions with thumbs pointing upward." }, sets: 3, reps: "8", type: "rep", postureId: "ytw" }
+            ]
+          },
+          {
+            dayName: { tr: "Çarşamba", en: "Wednesday" },
+            focus: { tr: "Karın & Core Başlangıç", en: "Abs & Core Initiation" },
+            duration: "16-18 dk",
+            exercises: [
+              { name: { tr: "Ön Kol Planki", en: "Forearm Plank" }, target: { tr: "Tüm Karın Bloğu", en: "Total Core Wall" }, form: { tr: "Dirsekler omuz altında, kalça sıkılı. Düz bir hat halinde dur.", en: "Elbows beneath shoulders, brace glutes and maintain rigid plank line." }, sets: 3, holdSeconds: 20, type: "timed", postureId: "plank" },
+              { name: { tr: "Dead Bug (Ölü Böcek)", en: "Dead Bug" }, target: { tr: "Alt Karın & Core", en: "Lower Abs & Deep Core" }, form: { tr: "Sırtüstü yat, belini yere yapıştırıp zıt kol ve bacağı aç.", en: "Glue lower back to ground, extend opposite arm and leg synchronously." }, sets: 3, reps: "10 (Toplam)", type: "rep", postureId: "deadbug" },
+              { name: { tr: "Yavaş Dağ Tırmanışı", en: "Slow Mountain Climber" }, target: { tr: "Core & Dayanıklılık", en: "Core & Stamina" }, form: { tr: "Şınav pozisyonunda dizleri acele etmeden sırayla göğse çek.", en: "From high plank, rhythmically drive knees towards chest with control." }, sets: 3, holdSeconds: 18, type: "timed", postureId: "climber" }
+            ]
+          },
+          {
+            dayName: { tr: "Perşembe", en: "Thursday" },
+            focus: { tr: "Aktif Toparlanma & Mobilite", en: "Active Recovery & Mobility" },
+            duration: "14 dk",
+            exercises: [
+              { name: { tr: "Kedi - Deve Esnemesi", en: "Cat - Cow Stretch" }, target: { tr: "Omurga Mobilizasyonu", en: "Spinal Articulation" }, form: { tr: "Nefes alırken beli çukurlaştır, verirken sırtı kabart.", en: "Inhale arching lower back; exhale rounding thoracic spine smoothly." }, sets: 2, reps: "8", type: "rep", postureId: "catcow" },
+              { name: { tr: "Çocuk Duruşu", en: "Child's Pose" }, target: { tr: "Kanat & Omuz Rahatlatma", en: "Lats & Shoulder Relief" }, form: { tr: "Kolları ileri uzatarak göğsü yere doğru bırak.", en: "Extend arms forward, sink hips to heels and breathe deeply." }, sets: 2, holdSeconds: 25, type: "timed", postureId: "child" }
+            ]
+          },
+          {
+            dayName: { tr: "Cuma", en: "Friday" },
+            focus: { tr: "Sırt & Kol Güç", en: "Back & Arms Strength" },
+            duration: "18-20 dk",
+            exercises: [
+              { name: { tr: "Kapı Pervazında Row", en: "Doorframe Row" }, target: { tr: "Kanat & Sırt", en: "Lats & Upper Back" }, form: { tr: "Pervaza tutunup hafif eğimle göğsü kapıya çek.", en: "Grip doorframe with lean, pull chest forward squeezing shoulder blades." }, sets: 3, reps: "8-9", type: "rep", postureId: "door" },
+              { name: { tr: "Masa / Tezgah Triceps İtişi", en: "Desk / Bench Triceps Press" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Eller yüksekte, dirsekleri büküp kontrollü şekilde it.", en: "Hands on elevated surface, bend elbows and press back explosively." }, sets: 3, reps: "8-9", type: "rep", postureId: "benchtriceps" },
+              { name: { tr: "Yüzücü Vuruşu", en: "Prone Swimmer Flutter" }, target: { tr: "Arka Zincir", en: "Posterior Chain" }, form: { tr: "Yüzüstü yatarken çapraz kol ve bacağı sakin tempoda kaldır.", en: "Lie prone, flutter opposite arm and leg in rhythmic cadences." }, sets: 3, holdSeconds: 18, type: "timed", postureId: "swimmer" }
+            ]
+          },
+          {
+            dayName: { tr: "Cumartesi", en: "Saturday" },
+            focus: { tr: "Omuz & Core Kontrol", en: "Shoulders & Core Control" },
+            duration: "18-20 dk",
+            exercises: [
+              { name: { tr: "Plank Omuz Dokunuşu", en: "Plank Shoulder Taps" }, target: { tr: "Omuz & Oblikler", en: "Shoulders & Anti-Rotation" }, form: { tr: "Kalçayı sallamadan sırayla elini zıt omuza götür.", en: "In high plank, touch opposite shoulder without swaying hips." }, sets: 3, reps: "10 (Toplam)", type: "rep", postureId: "taps" },
+              { name: { tr: "Standart Pike Push-Up", en: "Standard Pike Push-Up" }, target: { tr: "Omuz Başları", en: "Deltoid Caps" }, form: { tr: "Temiz ve sakin açıyla omuz basışı yap.", en: "Control lowering phase and push through palms overhead." }, sets: 3, reps: "5-6", type: "rep", postureId: "pike" },
+              { name: { tr: "Hollow Body Tutuşu", en: "Hollow Body Hold" }, target: { tr: "Karın Duvarı", en: "Anterior Core Lock" }, form: { tr: "Beli yere yapıştır, bacakları hafif kaldır.", en: "Press lumbar into floor, lift shoulder blades and feet into banana shape." }, sets: 3, holdSeconds: 18, type: "timed", postureId: "hollow" }
+            ]
+          },
+          {
+            dayName: { tr: "Pazar", en: "Sunday" },
+            focus: { tr: "Haftalık Dinlenme", en: "Weekly Rest & Repair" },
+            duration: "Dinlenme",
+            exercises: [
+              { name: { tr: "Yürüyüş & Kas Onarımı", en: "Walk & Muscle Repair" }, target: { tr: "Toparlanma", en: "Active Recovery" }, form: { tr: "Haftayı tamamladın. Bol su tüket ve kaslarını toparla.", en: "Week complete! Hydrate well, stretch lightly, and prepare for next week." }, sets: 1, reps: "Dinlen", type: "rep", postureId: "rest" }
+            ]
+          }
+        ]
+      },
+      2: {
+        weekBonusReps: 1,
+        weekBonusHold: 4,
+        days: [
+          {
+            dayName: { tr: "Pazartesi", en: "Monday" },
+            focus: { tr: "Omuz & Triceps İtiş", en: "Shoulders & Triceps Push" },
+            duration: "20-24 dk",
+            exercises: [
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuz Başları", en: "Deltoids" }, form: { tr: "Açıyı koruyarak kontrollü tekrar uygula.", en: "Maintain strict V-angle with deliberate eccentric tempo." }, sets: 3, reps: "6-7", type: "rep", postureId: "pike" },
+              { name: { tr: "Sandalye Dips", en: "Chair Dips" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Dirsekleri 90 dereceye kadar indirip yukarı it.", en: "Lower smoothly to 90 degrees and lockout with triceps." }, sets: 3, reps: "8-9", type: "rep", postureId: "dips" },
+              { name: { tr: "Diz Üstü Elmas Şınav", en: "Kneeling Diamond Push-Up" }, target: { tr: "Triceps & Göğüs", en: "Triceps & Chest" }, form: { tr: "Daha kontrollü ve net kasılma sağla.", en: "Focus on crisp inner chest and triceps squeeze." }, sets: 3, reps: "7-8", type: "rep", postureId: "diamond" }
+            ]
+          },
+          {
+            dayName: { tr: "Salı", en: "Tuesday" },
+            focus: { tr: "Sırt & Postür Çekiş", en: "Back & Posture Pull" },
+            duration: "20-22 dk",
+            exercises: [
+              { name: { tr: "Yerde Havlu Çekişi", en: "Floor Towel Row" }, target: { tr: "Kanatlar", en: "Lats" }, form: { tr: "Havluyu dışa çekerek kanatları daha sert sık.", en: "Rip towel apart laterally while squeezing rhomboids." }, sets: 3, reps: "10-11", type: "rep", postureId: "row" },
+              { name: { tr: "Superman Tutuşu", en: "Superman Hold" }, target: { tr: "Bel & Sırt", en: "Lower Back" }, form: { tr: "Tepe noktada gerginliği koru.", en: "Lock extension at peak without hyperextending neck." }, sets: 3, holdSeconds: 22, type: "timed", postureId: "superman" },
+              { name: { tr: "Y-T-W Kaldırışları", en: "Y-T-W Raises" }, target: { tr: "Arka Omuz", en: "Rear Delts" }, form: { tr: "Kürek kemiklerini birbirine iyice yaklaştır.", en: "Pinch shoulder blades firmly at the top of each letter." }, sets: 3, reps: "9-10", type: "rep", postureId: "ytw" }
+            ]
+          },
+          {
+            dayName: { tr: "Çarşamba", en: "Wednesday" },
+            focus: { tr: "Karın & Core Gelişim", en: "Core Development" },
+            duration: "18-20 dk",
+            exercises: [
+              { name: { tr: "Ön Kol Planki", en: "Forearm Plank" }, target: { tr: "Tüm Karın", en: "Total Abs" }, form: { tr: "Gövdeyi bir ok gibi düz tut.", en: "Maintain straight arrow spinal line with zero sagging." }, sets: 3, holdSeconds: 25, type: "timed", postureId: "plank" },
+              { name: { tr: "Dead Bug", en: "Dead Bug" }, target: { tr: "Alt Karın", en: "Lower Core" }, form: { tr: "Kontrollü açılış ve kapanış.", en: "Synchronized extension while anchoring lumbar spine." }, sets: 3, reps: "12 (Toplam)", type: "rep", postureId: "deadbug" },
+              { name: { tr: "Dağ Tırmanışı", en: "Mountain Climber" }, target: { tr: "Core & Omuz", en: "Core & Shoulders" }, form: { tr: "Ritmik tempoyu koru.", en: "Maintain steady cadence while stabilizing shoulder blades." }, sets: 3, holdSeconds: 22, type: "timed", postureId: "climber" }
+            ]
+          },
+          {
+            dayName: { tr: "Perşembe", en: "Thursday" },
+            focus: { tr: "Mobilite", en: "Mobility & Stretch" },
+            duration: "14 dk",
+            exercises: [
+              { name: { tr: "Kedi - Deve Esnemesi", en: "Cat - Cow" }, target: { tr: "Omurga", en: "Spine" }, form: { tr: "Derin nefeslerle omurgayı rahatlat.", en: "Synchronize deep belly breaths with smooth spinal flow." }, sets: 2, reps: "10", type: "rep", postureId: "catcow" },
+              { name: { tr: "Çocuk Duruşu", en: "Child's Pose" }, target: { tr: "Omuz Rahatlatma", en: "Shoulder Relief" }, form: { tr: "Sırtını uzat ve dinlendir.", en: "Lengthen spine and decompress upper back muscles." }, sets: 2, holdSeconds: 30, type: "timed", postureId: "child" }
+            ]
+          },
+          {
+            dayName: { tr: "Cuma", en: "Friday" },
+            focus: { tr: "Sırt & Kol", en: "Back & Arms" },
+            duration: "20-24 dk",
+            exercises: [
+              { name: { tr: "Kapı Çekişi", en: "Doorway Row" }, target: { tr: "Kanat", en: "Lats" }, form: { tr: "Açıyı biraz daha derinleştir.", en: "Increase lean angle for higher pulling resistance." }, sets: 3, reps: "9-10", type: "rep", postureId: "door" },
+              { name: { tr: "Masa Triceps İtişi", en: "Desk Triceps Press" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Tepe noktada triceps'i 1 saniye sık.", en: "Squeeze triceps for 1 full second at peak extension." }, sets: 3, reps: "9-10", type: "rep", postureId: "benchtriceps" },
+              { name: { tr: "Yüzücü Vuruşu", en: "Prone Swimmer" }, target: { tr: "Arka Hat", en: "Posterior Chain" }, form: { tr: "Tempolu vuruşlar.", en: "Controlled rhythmic fluttering with straight knees." }, sets: 3, holdSeconds: 22, type: "timed", postureId: "swimmer" }
+            ]
+          },
+          {
+            dayName: { tr: "Cumartesi", en: "Saturday" },
+            focus: { tr: "Omuz & Core", en: "Shoulders & Core" },
+            duration: "20-22 dk",
+            exercises: [
+              { name: { tr: "Plank Omuz Dokunuşu", en: "Shoulder Tap Plank" }, target: { tr: "Omuz & Core", en: "Anti-Rotation" }, form: { tr: "Sallantısız temiz tekrar.", en: "Clean taps with unwavering hip stability." }, sets: 3, reps: "12 (Toplam)", type: "rep", postureId: "taps" },
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuz", en: "Shoulders" }, form: { tr: "Yavaş iniş, kontrollü kalkış.", en: "Controlled eccentric lowering and solid press." }, sets: 3, reps: "6-7", type: "rep", postureId: "pike" },
+              { name: { tr: "Hollow Body", en: "Hollow Body Hold" }, target: { tr: "Karın Duvarı", en: "Abdominal Wall" }, form: { tr: "Bel boşluğunu kapatarak dur.", en: "Eliminate lumbar gap and sustain tension." }, sets: 3, holdSeconds: 22, type: "timed", postureId: "hollow" }
+            ]
+          },
+          {
+            dayName: { tr: "Pazar", en: "Sunday" },
+            focus: { tr: "Dinlenme", en: "Rest & Recovery" },
+            duration: "Dinlenme",
+            exercises: [
+              { name: { tr: "Kas Onarımı", en: "Recovery" }, target: { tr: "Toparlanma", en: "Restoration" }, form: { tr: "İkinci hafta geride kaldı. Harika gidiyorsun!", en: "Second week crushed! Replenish fluids and rest up." }, sets: 1, reps: "Dinlen", type: "rep", postureId: "rest" }
+            ]
+          }
+        ]
+      },
+      3: {
+        weekBonusReps: 2,
+        weekBonusHold: 8,
+        days: [
+          {
+            dayName: { tr: "Pazartesi", en: "Monday" },
+            focus: { tr: "Omuz & Triceps Güç", en: "Shoulders & Triceps Strength" },
+            duration: "22-26 dk",
+            exercises: [
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuzlar", en: "Delts" }, form: { tr: "Açıyı bozmadan derin iniş yap.", en: "Lower deeper into the inverted triangle pocket." }, sets: 4, reps: "7-8", type: "rep", postureId: "pike" },
+              { name: { tr: "Sandalye Dips", en: "Chair Dips" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Tepe kilitlenmesiyle güçlü basış.", en: "Powerful press into complete elbow lockout." }, sets: 4, reps: "10-11", type: "rep", postureId: "dips" },
+              { name: { tr: "Standart / Diz Üstü Elmas", en: "Diamond Push-Up" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Dirsekleri içeri yakın tut.", en: "Keep elbows pinned along ribs for triceps loading." }, sets: 3, reps: "8-9", type: "rep", postureId: "diamond" }
+            ]
+          },
+          {
+            dayName: { tr: "Salı", en: "Tuesday" },
+            focus: { tr: "Geniş Sırt Çekiş", en: "Wide Lat Pull" },
+            duration: "22-26 dk",
+            exercises: [
+              { name: { tr: "Yerde Havlu Çekişi", en: "Floor Towel Row" }, target: { tr: "Kanat Kasları", en: "Lats" }, form: { tr: "Çekerken kanatları 2 saniye sık.", en: "Squeeze lats for 2 full seconds at peak retraction." }, sets: 4, reps: "11-12", type: "rep", postureId: "row" },
+              { name: { tr: "Superman Tutuşu", en: "Superman Hold" }, target: { tr: "Bel & Sırt", en: "Spinal Chain" }, form: { tr: "Kesintisiz ve yay gibi tut.", en: "Hold taut bow shape with steady breathing." }, sets: 3, holdSeconds: 26, type: "timed", postureId: "superman" },
+              { name: { tr: "Y-T-W Kaldırışları", en: "Y-T-W Raises" }, target: { tr: "Arka Omuz", en: "Rear Delts" }, form: { tr: "Açıları net çizerek yap.", en: "Draw clean angles and isolate lower traps." }, sets: 3, reps: "10-11", type: "rep", postureId: "ytw" }
+            ]
+          },
+          {
+            dayName: { tr: "Çarşamba", en: "Wednesday" },
+            focus: { tr: "Taş Gibi Core", en: "Iron Core" },
+            duration: "20-24 dk",
+            exercises: [
+              { name: { tr: "Ön Kol Planki", en: "Forearm Plank" }, target: { tr: "Tüm Karın", en: "Core Lock" }, form: { tr: "Düz ve titremeden dur.", en: "Immovable plank hold resisting all sagittal movement." }, sets: 4, holdSeconds: 28, type: "timed", postureId: "plank" },
+              { name: { tr: "Dead Bug", en: "Dead Bug" }, target: { tr: "Alt Karın", en: "Lower Core" }, form: { tr: "Kontrollü uzanma.", en: "Full limb reach without lifting lumbar curve." }, sets: 3, reps: "14 (Toplam)", type: "rep", postureId: "deadbug" },
+              { name: { tr: "Dağ Tırmanışı", en: "Mountain Climber" }, target: { tr: "Core & Omuz", en: "Core Conditioning" }, form: { tr: "Tempolu sürdür.", en: "Sustain rapid yet controlled knee drives." }, sets: 3, holdSeconds: 25, type: "timed", postureId: "climber" }
+            ]
+          },
+          {
+            dayName: { tr: "Perşembe", en: "Thursday" },
+            focus: { tr: "Mobilite", en: "Mobility" },
+            duration: "14 dk",
+            exercises: [
+              { name: { tr: "Kedi - Deve Esnemesi", en: "Cat - Cow" }, target: { tr: "Omurga", en: "Spine" }, form: { tr: "Yavaş ve ritmik.", en: "Slow and fluid spinal waves." }, sets: 3, reps: "10", type: "rep", postureId: "catcow" },
+              { name: { tr: "Çocuk Duruşu", en: "Child's Pose" }, target: { tr: "Sırt & Omuz", en: "Back & Shoulders" }, form: { tr: "Tamamen gevşe.", en: "Release all tension in latissimus and shoulders." }, sets: 2, holdSeconds: 35, type: "timed", postureId: "child" }
+            ]
+          },
+          {
+            dayName: { tr: "Cuma", en: "Friday" },
+            focus: { tr: "Sırt & Kol", en: "Back & Arms" },
+            duration: "22-26 dk",
+            exercises: [
+              { name: { tr: "Kapı Çerçevesi Row", en: "Doorframe Row" }, target: { tr: "Kanat", en: "Lats" }, form: { tr: "Temiz ve güçlü çekiş.", en: "Crisp and forceful lat contraction." }, sets: 4, reps: "10-11", type: "rep", postureId: "door" },
+              { name: { tr: "Masa Triceps İtişi", en: "Desk Triceps Press" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Dirsekleri içeriye yakın tut.", en: "Maintain inward elbow tracking for direct loading." }, sets: 3, reps: "10-11", type: "rep", postureId: "benchtriceps" },
+              { name: { tr: "Yüzücü Vuruşu", en: "Swimmer Flutter" }, target: { tr: "Arka Zincir", en: "Posterior Chain" }, form: { tr: "Ritmik çalışma.", en: "Smooth endurance cadence with high glute tension." }, sets: 3, holdSeconds: 25, type: "timed", postureId: "swimmer" }
+            ]
+          },
+          {
+            dayName: { tr: "Cumartesi", en: "Saturday" },
+            focus: { tr: "Omuz & Core Zirvesi", en: "Shoulder & Core Apex" },
+            duration: "22-25 dk",
+            exercises: [
+              { name: { tr: "Plank Omuz Tap", en: "Plank Shoulder Taps" }, target: { tr: "Omuz & Core", en: "Shoulders & Core" }, form: { tr: "Gövdeyi kıpırdatmadan dokun.", en: "Zero hip sway while alternating shoulder taps." }, sets: 3, reps: "14 (Toplam)", type: "rep", postureId: "taps" },
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuz", en: "Shoulders" }, form: { tr: "Net omuz basışı.", en: "Sharp vertical drive pushing through palms." }, sets: 3, reps: "7-8", type: "rep", postureId: "pike" },
+              { name: { tr: "Hollow Body", en: "Hollow Body" }, target: { tr: "Karın Duvarı", en: "Abdominal Wall" }, form: { tr: "Kesintisiz tut.", en: "Unbroken hollow hold with toes pointed." }, sets: 3, holdSeconds: 25, type: "timed", postureId: "hollow" }
+            ]
+          },
+          {
+            dayName: { tr: "Pazar", en: "Sunday" },
+            focus: { tr: "Dinlenme", en: "Rest Day" },
+            duration: "Dinlenme",
+            exercises: [
+              { name: { tr: "Toparlanma", en: "Recovery" }, target: { tr: "Rejenerasyon", en: "Rejuvenation" }, form: { tr: "Son haftaya geçmeden önce kasları dinlendir.", en: "Prime muscles for the upcoming milestone week." }, sets: 1, reps: "Dinlen", type: "rep", postureId: "rest" }
+            ]
+          }
+        ]
+      },
+      4: {
+        weekBonusReps: 3,
+        weekBonusHold: 12,
+        days: [
+          {
+            dayName: { tr: "Pazartesi", en: "Monday" },
+            focus: { tr: "Zirve Omuz & Triceps", en: "Peak Shoulders & Triceps" },
+            duration: "25-30 dk",
+            exercises: [
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuz", en: "Shoulders" }, form: { tr: "Temiz tekrarla omuzları yak.", en: "High-rep burnout with immaculate deltoid drive." }, sets: 4, reps: "8-9", type: "rep", postureId: "pike" },
+              { name: { tr: "Sandalye Dips", en: "Chair Dips" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Derin iniş ve patlayıcı itiş.", en: "Deep dip depth paired with explosive extension." }, sets: 4, reps: "11-12", type: "rep", postureId: "dips" },
+              { name: { tr: "Elmas Şınav", en: "Diamond Push-Up" }, target: { tr: "Triceps & Göğüs", en: "Triceps & Chest" }, form: { tr: "Maksimum kontrol.", en: "Full depth and strict lockouts." }, sets: 3, reps: "8-9", type: "rep", postureId: "diamond" }
+            ]
+          },
+          {
+            dayName: { tr: "Salı", en: "Tuesday" },
+            focus: { tr: "V-Taper Geniş Sırt", en: "V-Taper Lat Wings" },
+            duration: "25-30 dk",
+            exercises: [
+              { name: { tr: "Yerde Havlu Çekişi", en: "Floor Towel Row" }, target: { tr: "Dış Kanat", en: "Outer Lats" }, form: { tr: "Havluyu güçlüce gererek çek.", en: "High-intensity lateral towel tension throughout." }, sets: 4, reps: "12-14", type: "rep", postureId: "row" },
+              { name: { tr: "Superman Tutuşu", en: "Superman Hold" }, target: { tr: "Bel & Sırt", en: "Lower Back" }, form: { tr: "Sağlam tutuş.", en: "High arch extension hold with rock-solid glutes." }, sets: 3, holdSeconds: 30, type: "timed", postureId: "superman" },
+              { name: { tr: "Y-T-W Kaldırışları", en: "Y-T-W Raises" }, target: { tr: "Arka Omuz", en: "Rear Delts" }, form: { tr: "Sıkıştırma ve kontrol.", en: "Deliberate 1-second contractions per letter." }, sets: 3, reps: "12", type: "rep", postureId: "ytw" }
+            ]
+          },
+          {
+            dayName: { tr: "Çarşamba", en: "Wednesday" },
+            focus: { tr: "Çelik Karın", en: "Steel Core" },
+            duration: "22-26 dk",
+            exercises: [
+              { name: { tr: "Ön Kol Planki", en: "Forearm Plank" }, target: { tr: "Tüm Core", en: "Total Core" }, form: { tr: "Sağlam şampiyon planki.", en: "Championship plank: relentless abdominal wall stiffness." }, sets: 3, holdSeconds: 35, type: "timed", postureId: "plank" },
+              { name: { tr: "Dead Bug", en: "Dead Bug" }, target: { tr: "Alt Karın", en: "Deep Abs" }, form: { tr: "Yavaş açılış ve tam gerilim.", en: "Slow elongation keeping lower back glued down." }, sets: 3, reps: "16 (Toplam)", type: "rep", postureId: "deadbug" },
+              { name: { tr: "Dağ Tırmanışı", en: "Mountain Climber" }, target: { tr: "Core & Kondisyon", en: "Conditioning" }, form: { tr: "Kesintisiz sürdür.", en: "Continuous tempo maintaining stable posture." }, sets: 3, holdSeconds: 30, type: "timed", postureId: "climber" }
+            ]
+          },
+          {
+            dayName: { tr: "Perşembe", en: "Thursday" },
+            focus: { tr: "Mobilite", en: "Mobility" },
+            duration: "14 dk",
+            exercises: [
+              { name: { tr: "Kedi - Deve", en: "Cat - Cow" }, target: { tr: "Omurga", en: "Spinal Waves" }, form: { tr: "Derin nefesler.", en: "Deep lungful breaths through spine." }, sets: 3, reps: "10", type: "rep", postureId: "catcow" },
+              { name: { tr: "Çocuk Duruşu", en: "Child's Pose" }, target: { tr: "Omuz & Kanat", en: "Lats & Shoulders" }, form: { tr: "Gevşe ve uzat.", en: "Deep restorative opening." }, sets: 2, holdSeconds: 35, type: "timed", postureId: "child" }
+            ]
+          },
+          {
+            dayName: { tr: "Cuma", en: "Friday" },
+            focus: { tr: "Sırt & Kol Bitiş", en: "Back & Arms Finale" },
+            duration: "25-30 dk",
+            exercises: [
+              { name: { tr: "Kapı Row", en: "Doorframe Row" }, target: { tr: "Kanat", en: "Lats" }, form: { tr: "Net çekiş.", en: "Explosive pull and controlled return." }, sets: 4, reps: "11-12", type: "rep", postureId: "door" },
+              { name: { tr: "Masa Triceps", en: "Desk Triceps" }, target: { tr: "Triceps", en: "Triceps" }, form: { tr: "Tepe sıkıştırmalı itiş.", en: "High peak squeeze extension." }, sets: 3, reps: "11-12", type: "rep", postureId: "benchtriceps" },
+              { name: { tr: "Yüzücü Vuruşu", en: "Swimmer Flutter" }, target: { tr: "Arka Hat", en: "Posterior Chain" }, form: { tr: "Tempolu.", en: "Fast-paced sustained fluttering." }, sets: 3, holdSeconds: 30, type: "timed", postureId: "swimmer" }
+            ]
+          },
+          {
+            dayName: { tr: "Cumartesi", en: "Saturday" },
+            focus: { tr: "Zafer Antrenmanı", en: "Victory Workout" },
+            duration: "25-30 dk",
+            exercises: [
+              { name: { tr: "Pike Push-Up", en: "Pike Push-Up" }, target: { tr: "Omuz Başları", en: "Deltoid Peak" }, form: { tr: "Zirve omuz yüklemesi.", en: "Peak shoulder loading with crisp reps." }, sets: 4, reps: "8-10", type: "rep", postureId: "pike" },
+              { name: { tr: "Plank Omuz Tap", en: "Plank Shoulder Taps" }, target: { tr: "Omuz & Core", en: "Core Balance" }, form: { tr: "Net ve titremeden.", en: "Unshakeable anti-rotation shoulder taps." }, sets: 3, reps: "16 (Toplam)", type: "rep", postureId: "taps" },
+              { name: { tr: "Hollow Body", en: "Hollow Body" }, target: { tr: "Karın Duvarı", en: "Abdominal Lock" }, form: { tr: "Dayanarak ayı tamamla.", en: "Hold strong and finish the month's final set." }, sets: 3, holdSeconds: 30, type: "timed", postureId: "hollow" }
+            ]
+          },
+          {
+            dayName: { tr: "Pazar", en: "Sunday" },
+            focus: { tr: "Aylık Dinlenme & Değerlendirme", en: "Monthly Review & Rest" },
+            duration: "Zafer",
+            exercises: [
+              { name: { tr: "Toparlanma & Gurur", en: "Proud Recovery" }, target: { tr: "Tüm Vücut", en: "Total Body" }, form: { tr: "Bu ayki hedefini tamamladın. Kilo grafiğini kontrol et ve bir sonraki aya hazır ol!", en: "Month completed! Check your weight trend and get ready for the next phase!" }, sets: 1, reps: "Tebrikler!", type: "rep", postureId: "rest" }
+            ]
+          }
+        ]
+      }
+    };
+
+    // 1. Aydan 6. Aya, 1. Haftadan 24. Haftaya Kademeli Aşamalı Zorlaşma Motoru (Progressive Overload)
+    function getProgramData(monthNum, weekNum) {
+      const clampedMonth = Math.min(6, Math.max(1, monthNum));
+      const clampedWeek = Math.min(4, Math.max(1, weekNum));
+      const baseWeek = BASE_MONTH_TEMPLATE[clampedWeek] || BASE_MONTH_TEMPLATE[1];
+
+      const phasesMap = YEARLY_PHASES_DATA[currentLang] || YEARLY_PHASES_DATA.tr;
+      const monthMeta = phasesMap[clampedMonth] || phasesMap[1];
+      const currentWeekMeta = (monthMeta.weeks && monthMeta.weeks[clampedWeek]) 
+        ? monthMeta.weeks[clampedWeek] 
+        : { label: `${clampedWeek}. ${t('weekWord')}`, focus: "Workout tempo." };
+
+      const progressiveRepBonus = (clampedMonth - 1) * 1;
+      const progressiveHoldBonus = (clampedMonth - 1) * 3;
+
+      const dynamicDays = baseWeek.days.map(d => {
+        const localizedDayName = typeof d.dayName === 'object' ? (d.dayName[currentLang] || d.dayName.tr) : d.dayName;
+        const localizedFocus = typeof d.focus === 'object' ? (d.focus[currentLang] || d.focus.tr) : d.focus;
+
+        return {
+          ...d,
+          dayName: localizedDayName,
+          focus: localizedFocus,
+          exercises: d.exercises.map(ex => {
+            const locName = typeof ex.name === 'object' ? (ex.name[currentLang] || ex.name.tr) : ex.name;
+            const locTarget = typeof ex.target === 'object' ? (ex.target[currentLang] || ex.target.tr) : ex.target;
+            const locForm = typeof ex.form === 'object' ? (ex.form[currentLang] || ex.form.tr) : ex.form;
+
+            if (ex.type === 'timed') {
+              const baseHold = ex.holdSeconds || 20;
+              return { ...ex, name: locName, target: locTarget, form: locForm, holdSeconds: baseHold + progressiveHoldBonus };
+            } else {
+              const baseStr = String(ex.reps || "8");
+              if (baseStr.includes('-')) {
+                const parts = baseStr.split('-').map(p => parseInt(p.trim(), 10));
+                return { ...ex, name: locName, target: locTarget, form: locForm, reps: `${parts[0] + progressiveRepBonus}-${parts[1] + progressiveRepBonus}` };
+              } else if (!isNaN(parseInt(baseStr, 10))) {
+                return { ...ex, name: locName, target: locTarget, form: locForm, reps: String(parseInt(baseStr, 10) + progressiveRepBonus) };
+              }
+              return { ...ex, name: locName, target: locTarget, form: locForm };
+            }
+          })
+        };
+      });
+
+      const globalWeekIndex = ((clampedMonth - 1) * 4) + clampedWeek;
+
+      return {
+        monthName: monthMeta.name,
+        monthDesc: monthMeta.desc,
+        weekTitle: `${clampedMonth}. ${t('monthWord')} • ${currentWeekMeta.label} (${globalWeekIndex}/24)`,
+        weekDesc: currentWeekMeta.focus,
+        days: dynamicDays
+      };
+    }
+
+    /* Gerçek Egzersiz Fotoğrafları Veritabanı */
+    const REAL_EXERCISE_PHOTOS = {
+      pike: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800&q=80",
+      dips: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      diamond: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80",
+      row: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=800&q=80",
+      superman: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80",
+      ytw: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      plank: "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?auto=format&fit=crop&w=800&q=80",
+      deadbug: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
+      climber: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?auto=format&fit=crop&w=800&q=80",
+      catcow: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+      child: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80",
+      door: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80",
+      benchtriceps: "https://images.unsplash.com/photo-1530822847156-5df684ec5ee1?auto=format&fit=crop&w=800&q=80",
+      taps: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+      swimmer: "https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?auto=format&fit=crop&w=800&q=80",
+      hollow: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80",
+      rest: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
+    };
+
+    let customExercisePhotos = loadLocal('custom_exercise_photos', {});
+    let activeEditingPostureId = null;
+
+    /* Harekete Özgü Biyomekanik İpuçları & Antrenör Notları (TR & EN) */
+    const EXERCISE_SPECIFIC_NOTES = {
+      tr: {
+        pike: [
+          "Başını doğrudan aşağı değil, ellerin 15-20 cm ilerisine doğru bir üçgen tepe oluşturacak şekilde indir.",
+          "Ağırlığın büyük kısmını bacaklarda değil, omuz başlarında ve avuç içlerinde hisset.",
+          "İnerken nefes al, tepeye doğru basarken kalçayı tavana iterek nefes ver."
+        ],
+        dips: [
+          "Sırtını arkadaki sandalyeye/sehpaya olabildiğince yakın tut; öne kayarsan omuz eklemine aşırı yük biner.",
+          "Dirsekleri asla yana doğru açma; doğrudan geriye doğru bükülsünler.",
+          "İtiş anında triceps kaslarını 1 saniye güçlüce sıkarak tepe kilitlenmeyi yakala."
+        ],
+        diamond: [
+          "İşaret ve baş parmaklarınla göğsünün tam altında üçgen (elmas) formu oluştur.",
+          "Dirseklerini gövdenin iki yanına paralel tut; açıldıkça omuz baskısı artar, kapalı kaldıkça triceps alev alır.",
+          "Belin aşağı sarkmasına izin verme; kalça ve karnı set boyunca sıkı tut."
+        ],
+        row: [
+          "Havluyu iki elinle dışa doğru koparmaya çalışırcasına gergin tut; kanat kaslarındaki aktivasyonu ikiye katlar.",
+          "Çekişi kollarla değil, kürek kemiklerini arkada birbirine ezerek başlat.",
+          "Tepe çekiş noktasında 1-2 saniye duraklayıp sırtındaki lifleri kasılma halinde hisset."
+        ],
+        superman: [
+          "Kafanı geriye doğru aşırı büküp boynunu sıkıştırma; bakışların hafifçe yere baksın.",
+          "Kolları ve bacakları yukarı kaldırırken aynı anda kalça kaslarını da güçlü şekilde kilitle.",
+          "Nefesini tutma; diyaframından sakin ve ritmik nefes alıp ver."
+        ],
+        ytw: [
+          "Kolları Y, T ve W açılarında açarken baş parmakların daima tavanı göstersin.",
+          "Omuzlarını kulaklarına doğru çekme; kürek kemiklerini aşağı ve içeri doğru bastır.",
+          "Her harf formunda 1 saniye tepe sıkıştırma ile arka omuz liflerini uyar."
+        ],
+        plank: [
+          "Dirseklerin tam olarak omuz başlarının hizasında olsun.",
+          "Kalçayı ne çok yukarı dik ne de aşağı düşür; topuklardan başa tek bir düz çizgi oluştur.",
+          "Göbeğini omurgana doğru içeri çek ve kalça kaslarını taş gibi sık."
+        ],
+        deadbug: [
+          "Hareketteki en önemli kural: Bel çukurun zeminle asla temasını kaybetmemeli, sıfır boşluk.",
+          "Zıt kol ve bacağı açarken çok hızlı gitme; 2 saniye iniş, 1 saniye toparlanma temposunu koru.",
+          "Bacağını uzatırken karın duvarından kuvvetli nefes ver."
+        ],
+        climber: [
+          "Hızlı ve kontrolsüzce koşmak yerine; dizini göğsüne kontrollü çekip karın kasını sıkıştır.",
+          "Omuzlarının bileklerin tam üzerinde sabit kalmasına dikkat et, arkaya kaçma.",
+          "Gövdenin sağa sola savrulmasını engelleyerek merkez stabiliteni koru."
+        ],
+        hollow: [
+          "Belini yere tamamen yapıştır; altından el geçmeyecek şekilde omurgayı kilitle.",
+          "Kollar geride zorluyorsa kolları öne veya dizlerini hafif bükerek açıyı kontrol altına al.",
+          "Kürek kemiklerini yerden 2-3 cm havada tutarak üst karın gerilimini koru."
+        ],
+        catcow: [
+          "Hareket hız odaklı değildir; her nefesle omurganın tek tek omurlarını hisset.",
+          "Nefes alırken göğsü aç ve beli nazikçe çukurlaştır; nefes verirken sırtı kedi gibi kubbeleştir."
+        ],
+        child: [
+          "Kolları olabildiğince ileri uzatıp göğsünü zemine doğru ağırlaştır.",
+          "Kanat kaslarının ve omuz kuşağının uzayıp rahatladığını hissederek derin nefesler al."
+        ],
+        door: [
+          "Kapı pervazına sağlam tutun; gövdeni arkaya bırakıp topuklar üzerinde sabit dur.",
+          "Dirseğini geriye çekerek göğsünü pervaza yaklaştır, kanat kasını sık."
+        ],
+        benchtriceps: [
+          "Masa veya yüksek tezgahta dirsekleri içeri kapalı tutarak alnını masaya doğru yaklaştır.",
+          "Yalnızca dirsek eklemini açıp kapatarak tüm itişi arka kola yükle."
+        ],
+        taps: [
+          "Elini karşı omuza götürürken kalçanın sağa sola sallanmasını sıfıra indir.",
+          "Dengeyi sağlamak için ayaklarını omuz genişliğinden biraz daha açık tutabilirsin."
+        ],
+        swimmer: [
+          "Yüzüstü ritmik çapraz kol-bacak kaldırışlarında dizlerini bükmeden kalçadan güç al.",
+          "Sırt zincirindeki sürekli hafif gerilim postürünü dikleştirecektir."
+        ]
+      },
+      en: {
+        pike: [
+          "Lower head slightly ahead of hands to form a tripod apex rather than dropping straight down.",
+          "Load the majority of bodyweight into your deltoids and palms rather than the lower body.",
+          "Inhale on descent; exhale forcefully while driving hips up to ceiling."
+        ],
+        dips: [
+          "Keep your back close to the bench to avoid excessive shearing strain on shoulder joints.",
+          "Never flare elbows out sideways; track them straight backward.",
+          "Contract triceps forcefully for 1 second at peak lockout."
+        ],
+        diamond: [
+          "Form a triangle/diamond with index fingers and thumbs beneath center chest.",
+          "Keep elbows tucked close to torso; flaring increases shoulder stress, tucking fires triceps.",
+          "Avoid lumbar sag; maintain tight core and glutes throughout each rep."
+        ],
+        row: [
+          "Pull the towel apart laterally with full effort to double lat activation.",
+          "Initiate the pull by crushing shoulder blades together rather than yanking with forearms.",
+          "Pause 1-2 seconds at peak contraction to feel the back musculature lock."
+        ],
+        superman: [
+          "Keep neck neutral with gaze down rather than hyperextending cervical spine.",
+          "Squeeze glutes and lower back simultaneously as limbs rise off the floor.",
+          "Do not hold breath; breathe smoothly and diaphragm-deep."
+        ],
+        ytw: [
+          "Keep thumbs pointing toward ceiling throughout Y, T, and W positions.",
+          "Depress shoulders away from ears; pinch mid-traps down and in.",
+          "Hold 1-second peak squeeze on every single letter rep."
+        ],
+        plank: [
+          "Position elbows squarely under shoulder joints.",
+          "Form one unbroken horizontal line from heels through crown of head.",
+          "Draw navel to spine and maintain stone-hard glute contraction."
+        ],
+        deadbug: [
+          "Absolute rule: keep lower back flat against ground with zero daylight underneath.",
+          "Control tempo: 2 seconds out, 1 second hold, 1 second return.",
+          "Exhale deeply through the mouth as limb extends."
+        ],
+        climber: [
+          "Prioritize crisp core compression over erratic rushing.",
+          "Keep shoulders stacked directly over wrists without drifting backward.",
+          "Eliminate torso rotation to preserve deep abdominal stiffness."
+        ],
+        hollow: [
+          "Press lumbar spine firmly into floor so no hand could slide through.",
+          "Tuck knees slightly or bring arms forward if lower back starts lifting.",
+          "Elevate shoulder blades 2-3 cm off ground to maintain anterior core tension."
+        ],
+        catcow: [
+          "Prioritize segmental articulation over speed.",
+          "Inhale into chest opening and gentle lumbar arch; exhale curling into high thoracic dome."
+        ],
+        child: [
+          "Reach fingertips as far as possible while sinking chest toward floor.",
+          "Feel lats and shoulder girdle decompress with steady diaphragmatic breaths."
+        ],
+        door: [
+          "Firmly grasp doorframe with feet set under edge, leaning back.",
+          "Drive elbows straight back to pull chest forward, squeezing lats."
+        ],
+        benchtriceps: [
+          "Keep elbows pinned narrow as forehead lowers toward edge.",
+          "Isolate elbow extension to place direct load onto triceps."
+        ],
+        taps: [
+          "Eliminate hip sway as hand taps opposite shoulder.",
+          "Widen feet slightly if needed to establish stable tripod base."
+        ],
+        swimmer: [
+          "Flutter opposite limbs rhythmically with straight knees, initiating power from glutes.",
+          "Sustained tension across posterior chain strengthens upright posture."
+        ]
+      }
+    };
+
+    function getScaledExerciseMetrics(ex) {
+      if (ex.type === 'timed') {
+        const baseHold = ex.holdSeconds || 20;
+        let finalHold = baseHold;
+        if (workoutDifficulty === 'easy') {
+          finalHold = Math.max(12, baseHold - 5);
+        } else if (workoutDifficulty === 'hard') {
+          finalHold = baseHold + 8;
+        }
+        return { type: 'timed', holdSeconds: finalHold, label: `${finalHold} sn` };
+      } else {
+        const baseStr = String(ex.reps || "8");
+        if (baseStr.includes('-')) {
+          const parts = baseStr.split('-').map(p => parseInt(p.trim(), 10));
+          let low = parts[0];
+          let high = parts[1];
+          if (workoutDifficulty === 'easy') {
+            low = Math.max(3, low - 2);
+            high = Math.max(4, high - 2);
+          } else if (workoutDifficulty === 'hard') {
+            low = low + 3;
+            high = high + 4;
+          }
+          return { type: 'rep', reps: `${low}-${high}`, label: `${low}-${high}` };
+        } else if (!isNaN(parseInt(baseStr, 10))) {
+          let num = parseInt(baseStr, 10);
+          if (workoutDifficulty === 'easy') {
+            num = Math.max(3, num - 2);
+          } else if (workoutDifficulty === 'hard') {
+            num = num + 3;
+          }
+          return { type: 'rep', reps: String(num), label: String(num) };
+        }
+        return { type: 'rep', reps: baseStr, label: baseStr };
+      }
+    }
+
+    function getPostureMedia(postureId, exerciseName) {
+      const userCustom = customExercisePhotos[postureId];
+      const photoSrc = userCustom || REAL_EXERCISE_PHOTOS[postureId] || REAL_EXERCISE_PHOTOS.plank;
+
+      return `
+        <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: #080f18;">
+          <img src="${photoSrc}" alt="${exerciseName}" class="exercise-media-photo" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80';">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,10,15,0.92) 0%, rgba(6,10,15,0.25) 60%, rgba(6,10,15,0.4) 100%); pointer-events: none;"></div>
+          <button class="btn-change-media" onclick="event.stopPropagation(); openMediaModal('${postureId}', '${exerciseName.replace(/'/g, "\\'")}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            ${t('changePhoto')}
+          </button>
+          <div class="posture-cue-pill">${t('posturePosition')} • ${exerciseName}</div>
+        </div>
+      `;
+    }
+
+    function openMediaModal(postureId, exName) {
+      activeEditingPostureId = postureId;
+      document.getElementById('media-modal-exercise-name').textContent = `${exName} Görseli`;
+      const input = document.getElementById('media-url-input');
+      input.value = customExercisePhotos[postureId] || '';
+      document.getElementById('media-custom-modal').style.display = 'flex';
+    }
+
+    function closeMediaModal() {
+      document.getElementById('media-custom-modal').style.display = 'none';
+      activeEditingPostureId = null;
+    }
+
+    function handleMediaFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file || !activeEditingPostureId) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64Data = e.target.result;
+        customExercisePhotos[activeEditingPostureId] = base64Data;
+        saveLocal('custom_exercise_photos', customExercisePhotos);
+        closeMediaModal();
+        if (currentDayRef) openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveMediaUrl() {
+      const url = document.getElementById('media-url-input').value.trim();
+      if (!activeEditingPostureId) return;
+
+      if (url) {
+        customExercisePhotos[activeEditingPostureId] = url;
+      } else {
+        delete customExercisePhotos[activeEditingPostureId];
+      }
+      saveLocal('custom_exercise_photos', customExercisePhotos);
+      closeMediaModal();
+      if (currentDayRef) openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+    }
+
+    function resetExerciseMediaToDefault() {
+      if (activeEditingPostureId && customExercisePhotos[activeEditingPostureId]) {
+        delete customExercisePhotos[activeEditingPostureId];
+        saveLocal('custom_exercise_photos', customExercisePhotos);
+      }
+      closeMediaModal();
+      if (currentDayRef) openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+    }
+
+    /* =========================================================
+       DURUM YÖNETİMİ (State & LocalStorage)
+       ========================================================= */
+    function loadLocal(k, fallback) {
+      try {
+        const val = localStorage.getItem('onness_' + k);
+        return val ? JSON.parse(val) : fallback;
+      } catch (e) { return fallback; }
+    }
+
+    function saveLocal(k, val) {
+      try { localStorage.setItem('onness_' + k, JSON.stringify(val)); } catch (e) {}
+    }
+    let activeMonthNumber = loadLocal('active_month', 1);
+    let activeWeekNumber = loadLocal('active_week', 1);
+    let workoutDifficulty = loadLocal('workout_difficulty', 'easy'); // 'easy', 'medium', 'hard'
+    let completedSets = loadLocal('sets_v2', {});
+    let loggedMeals = loadLocal('meals_v2', []);
+    let weightHistory = loadLocal('weights_v2', [
+      { date: "1 Eki", weight: 81.2 },
+      { date: "8 Eki", weight: 80.4 },
+      { date: "15 Eki", weight: 79.5 },
+      { date: "22 Eki", weight: 78.8 }
+    ]);
+    let targetWeight = loadLocal('target_weight', 75.0);
+    let targetCalories = loadLocal('target_calories', 2100);
+    let appSettings = loadLocal('app_settings', { sound: true, defaultRest: 45 });
+    let favoriteMeals = loadLocal('favorite_meals_custom', [
+      { cat: "Kahvaltı", desc: "Yulaf & Muz & Fıstık Ezmesi", cal: 420, protein: 16 },
+      { cat: "Öğle", desc: "Tavuk Göğsü & Pirinç Pilavı", cal: 480, protein: 45 }
+    ]);
+    let weightCurrentPage = 1;
+    const WEIGHTS_PER_PAGE = 10;
+    let modalMode = null; // 'calorie' veya 'weight'
+    let currentDayRef = null;
+    let currentExerciseRef = null;
+    let currentActiveScreen = 'hub';
+    let userExerciseNotes = loadLocal('user_exercise_notes', {});
+    let isCurrentExerciseInProgress = false; // Setin şu an yapılıyor olup olmadığını takip eden bayrak
+
+    /* Favori Öğünler Modalı & Yönetimi */
+    function openQuickMealModal() {
+      const modal = document.getElementById('quick-meal-modal');
+      const listEl = document.getElementById('quick-meals-list');
+      if (!modal || !listEl) return;
+
+      renderFavoriteMealsList();
+      modal.style.display = 'flex';
+    }
+
+    function renderFavoriteMealsList() {
+      const listEl = document.getElementById('quick-meals-list');
+      if (!listEl) return;
+      listEl.innerHTML = '';
+
+      if (favoriteMeals.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 20px;">
+            ${t('noFavMeals')}
+          </div>
+        `;
+        return;
+      }
+
+      favoriteMeals.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.style.background = 'var(--bg-surface)';
+        row.style.border = '1px solid var(--border-subtle)';
+        row.style.borderRadius = '14px';
+        row.style.padding = '10px 14px';
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.justifyContent = 'space-between';
+        row.style.transition = 'all 0.18s ease';
+
+        row.innerHTML = `
+          <div style="flex: 1; cursor: pointer; min-width: 0;" onclick="selectFavoriteMealPreset(${idx})">
+            <div style="font-size: 0.7rem; font-weight: 800; color: var(--accent-green); text-transform: uppercase;">[${item.cat}]</div>
+            <div style="font-size: 0.88rem; font-weight: 800; color: var(--text-bright); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.desc}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-left: 10px;">
+            <div style="text-align: right; cursor: pointer;" onclick="selectFavoriteMealPreset(${idx})">
+              <div style="font-size: 0.95rem; font-weight: 900; color: var(--accent-green);">${item.cal} kcal</div>
+              <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted);">${item.protein || 0}g P</div>
+            </div>
+            <button class="btn-remove" onclick="deleteFavoriteMeal(${idx})" title="Favorilerden Sil" style="font-size: 1.25rem; padding: 4px 6px;">×</button>
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function saveNewFavoriteMeal() {
+      const cat = document.getElementById('input-fav-cat').value;
+      const desc = document.getElementById('input-fav-desc').value.trim();
+      const cal = document.getElementById('input-fav-cal').value;
+      const prot = document.getElementById('input-fav-prot').value;
+
+      if (!desc || !cal) {
+        alert(currentLang === 'en' ? 'Please enter meal name and calories.' : 'Lütfen favori öğün adı ve kalori miktarını girin.');
+        return;
+      }
+
+      favoriteMeals.unshift({
+        cat: cat,
+        desc: desc,
+        cal: Number(cal),
+        protein: Number(prot || 0)
+      });
+      saveLocal('favorite_meals_custom', favoriteMeals);
+
+      document.getElementById('input-fav-desc').value = '';
+      document.getElementById('input-fav-cal').value = '';
+      document.getElementById('input-fav-prot').value = '';
+
+      triggerBeep(700, 0.1);
+      renderFavoriteMealsList();
+    }
+
+    function deleteFavoriteMeal(idx) {
+      if (idx >= 0 && idx < favoriteMeals.length) {
+        favoriteMeals.splice(idx, 1);
+        saveLocal('favorite_meals_custom', favoriteMeals);
+        renderFavoriteMealsList();
+      }
+    }
+
+    function selectFavoriteMealPreset(idx) {
+      const item = favoriteMeals[idx];
+      if (!item) return;
+
+      loggedMeals.push({
+        cat: item.cat,
+        desc: item.desc,
+        cal: Number(item.cal),
+        protein: Number(item.protein || 0)
+      });
+      saveLocal('meals_v2', loggedMeals);
+      triggerBeep(750, 0.12);
+      closeQuickMealModal();
+      renderNutritionScreen();
+    }
+
+    function closeQuickMealModal() {
+      const modal = document.getElementById('quick-meal-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    /* Ekran Gezintisi (Tarihçe ve Geri Hiyerarşisi Uyumlu) */
+    function navigateTo(screenId, pushToHistory = true) {
+      const activeEl = document.querySelector('.view-screen.active');
+      if (activeEl) {
+        activeEl.classList.remove('slide-out-right');
+      }
+
+      // Ekran değiştirirken devam eden geçici set durumunu sıfırla
+      if (screenId !== 'exercise-single') {
+        isCurrentExerciseInProgress = false;
+      }
+
+      document.querySelectorAll('.view-screen').forEach(scr => scr.classList.remove('active'));
+
+      const targetScreen = document.getElementById(`screen-${screenId}`);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+        currentActiveScreen = screenId;
+      }
+
+      const homeBtn = document.getElementById('btnHeaderHome');
+      if (homeBtn) {
+        homeBtn.style.display = screenId === 'hub' ? 'none' : 'flex';
+      }
+
+      if (pushToHistory && window.history) {
+        window.history.pushState({ screen: screenId }, '', `#${screenId}`);
+      }
+
+      if (screenId === 'workout') {
+        renderWorkoutDaysScreen();
+      } else if (screenId === 'nutrition') {
+        renderNutritionScreen();
+      } else if (screenId === 'weight-graph') {
+        renderWeightGraphScreen();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToDayDetail() {
+      if (currentDayRef) {
+        openDayDetail(currentDayRef.day, currentDayRef.dayIdx);
+      } else {
+        navigateTo('workout');
+      }
+    }
+
+    /* iOS Hiyerarşik Geri Dönüş Fonksiyonu */
+    function triggerBackNavigation() {
+      const current = currentActiveScreen;
+      let target = null;
+
+      if (current === 'exercise-single') {
+        target = 'workout-detail';
+      } else if (current === 'workout-detail') {
+        target = 'workout';
+      } else if (current === 'weight-graph') {
+        target = 'nutrition';
+      } else if (current === 'workout' || current === 'nutrition') {
+        target = 'hub';
+      }
+
+      if (target) {
+        const activeView = document.getElementById(`screen-${current}`);
+        if (activeView) {
+          activeView.classList.add('slide-out-right');
+          setTimeout(() => {
+            if (target === 'workout-detail' && currentDayRef) {
+              openDayDetail(currentDayRef.day, currentDayRef.dayIdx);
+            } else {
+              navigateTo(target, true);
+            }
+          }, 150);
+        } else {
+          if (target === 'workout-detail' && currentDayRef) {
+            openDayDetail(currentDayRef.day, currentDayRef.dayIdx);
+          } else {
+            navigateTo(target, true);
+          }
+        }
+      }
+    }
+
+    /* iPhone 15 & Safari Tarihçe (Popstate) Dinleyicisi */
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.screen) {
+        navigateTo(e.state.screen, false);
+      } else {
+        navigateTo('hub', false);
+      }
+    });
+
+    /* iPhone 15 iOS Soldan Sağa Kaydırma (Swipe-To-Back) Hareketi Algılayıcı */
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isEdgeSwipe = false;
+
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+
+      // Sol kenarın ilk 50 pikselinden başlayan kaydırmaları algıla
+      isEdgeSwipe = touchStartX <= 50 && currentActiveScreen !== 'hub';
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (!isEdgeSwipe) return;
+
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = Math.abs(touch.clientY - touchStartY);
+
+      // Sağa doğru en az 65px kaydırılmış ve dikey hareket yataydan az ise (çapraz kaydırma hatasını önler)
+      if (deltaX > 65 && deltaY < 80) {
+        triggerBackNavigation();
+      }
+      isEdgeSwipe = false;
+    }, { passive: true });
+
+    /* Web Audio Sentezleyici */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function triggerBeep(freq = 600, duration = 0.1) {
+      if (!appSettings.sound) return;
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    /* Dinlenme Sayacı Motoru */
+    let restInterval = null;
+    let restClock = 45;
+
+    function launchRestTimer(secs) {
+      const initialSecs = secs !== undefined ? secs : (appSettings.defaultRest || 45);
+      clearInterval(restInterval);
+      restClock = initialSecs;
+      const overlay = document.getElementById('rest-overlay');
+      const display = document.getElementById('rest-clock-val');
+      if (overlay) overlay.style.display = 'flex';
+
+      function tick() {
+        const m = Math.floor(restClock / 60);
+        const s = restClock % 60;
+        if (display) display.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+
+        if (restClock <= 3 && restClock > 0) {
+          triggerBeep(520, 0.08);
+        } else if (restClock === 0) {
+          triggerBeep(880, 0.35);
+          closeRestTimer();
+        }
+        restClock--;
+      }
+      tick();
+      restInterval = setInterval(tick, 1000);
+    }
+
+    function modifyRestTimer(delta) {
+      restClock = Math.max(5, restClock + delta);
+      const m = Math.floor(restClock / 60);
+      const s = restClock % 60;
+      const display = document.getElementById('rest-clock-val');
+      if (display) display.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function closeRestTimer() {
+      clearInterval(restInterval);
+      const overlay = document.getElementById('rest-overlay');
+      if (overlay) overlay.style.display = 'none';
+    }
+
+    /* Kilo Geçmişi Sayfalama */
+    function changeWeightPage(direction) {
+      const totalPages = Math.ceil(weightHistory.length / WEIGHTS_PER_PAGE) || 1;
+      const newPage = weightCurrentPage + direction;
+      if (newPage >= 1 && newPage <= totalPages) {
+        weightCurrentPage = newPage;
+        renderWeightGraphScreen();
+      }
+    }
+
+    /* Zorluk Modu Çarpanı */
+    function setWorkoutDifficulty(mode) {
+      workoutDifficulty = mode;
+      saveLocal('workout_difficulty', mode);
+
+      ['easy', 'medium', 'hard'].forEach(m => {
+        const btn = document.getElementById(`diff-btn-${m}`);
+        if (btn) {
+          if (m === mode) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const badge = document.getElementById('disp-difficulty-badge');
+      if (badge) {
+        badge.textContent = mode === 'easy' ? t('easyBadge') : (mode === 'medium' ? t('mediumBadge') : t('hardBadge'));
+      }
+
+      // Ana spor listesindeki günlerin sürelerini anında güncelle
+      renderWorkoutDaysScreen();
+
+      // Sadece kullanıcı zaten gün veya hareket detay ekranındaysa o ekranı güncelle
+      if (currentActiveScreen === 'workout-detail' && currentDayRef) {
+        openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+      } else if (currentActiveScreen === 'exercise-single' && currentExerciseRef) {
+        openExerciseSingleView(currentExerciseRef.ex, currentExerciseRef.exIdx, false);
+      }
+    }
+
+    // Seçilen zorluk moduna göre tahmini süreyi dinamik hesaplama
+    function getEstimatedDayDuration(baseDurationStr) {
+      if (!baseDurationStr || baseDurationStr === "Dinlenme" || baseDurationStr === "Zafer") {
+        return baseDurationStr === "Zafer" ? t('victoryDay') : t('restDay');
+      }
+
+      const matches = baseDurationStr.match(/\d+/g);
+      if (!matches) return baseDurationStr;
+
+      let min = parseInt(matches[0], 10);
+      let max = matches[1] ? parseInt(matches[1], 10) : min + 5;
+
+      if (workoutDifficulty === 'easy') {
+        min = Math.max(12, min - 5);
+        max = Math.max(16, max - 5);
+      } else if (workoutDifficulty === 'medium') {
+        min = min + 2;
+        max = max + 3;
+      } else if (workoutDifficulty === 'hard') {
+        min = min + 5;
+        max = max + 8;
+      }
+      return `${min}-${max} ${currentLang === 'en' ? 'min' : 'dk'}`;
+    }
+
+    function selectMonth(monthNum) {
+      activeMonthNumber = monthNum;
+      saveLocal('active_month', monthNum);
+      renderMonthChips();
+      renderWorkoutDaysScreen();
+    }
+
+    function renderMonthChips() {
+      const container = document.getElementById('months-track-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      for (let m = 1; m <= 6; m++) {
+        const chip = document.createElement('button');
+        chip.className = `month-chip ${m === activeMonthNumber ? 'active' : ''}`;
+        chip.onclick = () => selectMonth(m);
+        chip.innerHTML = `<span class="month-num">${m}.</span> ${t('monthWord')}`;
+        container.appendChild(chip);
+      }
+
+      const phasesMap = YEARLY_PHASES_DATA[currentLang] || YEARLY_PHASES_DATA.tr;
+      const badge = document.getElementById('disp-active-month-badge');
+      if (badge && phasesMap[activeMonthNumber]) {
+        badge.textContent = phasesMap[activeMonthNumber].name.toUpperCase();
+      }
+
+      const activeEl = container.querySelector('.month-chip.active');
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+
+    function selectWeek(weekNum) {
+      activeWeekNumber = weekNum;
+      saveLocal('active_week', weekNum);
+
+      document.querySelectorAll('.week-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i + 1 === weekNum);
+        tab.textContent = `${i + 1}. ${t('weekWord')}`;
+      });
+
+      renderWorkoutDaysScreen();
+    }
+
+    function renderWorkoutDaysScreen() {
+      renderMonthChips();
+
+      document.querySelectorAll('.week-tab').forEach((tab, i) => {
+        tab.textContent = `${i + 1}. ${t('weekWord')}`;
+      });
+
+      const programData = getProgramData(activeMonthNumber, activeWeekNumber);
+      if (!programData) return;
+
+      const titleEl = document.getElementById('disp-week-title');
+      if (titleEl) titleEl.textContent = programData.weekTitle;
+
+      const descEl = document.getElementById('disp-week-desc');
+      if (descEl) descEl.textContent = `${programData.monthDesc} — ${programData.weekDesc}`;
+
+      const container = document.getElementById('workout-days-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let totalSetsInWeek = 0;
+      let completedSetsInWeek = 0;
+
+      programData.days.forEach((day, dayIdx) => {
+        let totalSetsInDay = 0;
+        let completedSetsInDay = 0;
+
+        day.exercises.forEach((ex, exIdx) => {
+          totalSetsInDay += ex.sets;
+          for (let s = 1; s <= ex.sets; s++) {
+            totalSetsInWeek++;
+            const key = `m${activeMonthNumber}_w${activeWeekNumber}_d${dayIdx}_e${exIdx}_s${s}`;
+            if (completedSets[key]) {
+              completedSetsInDay++;
+              completedSetsInWeek++;
+            }
+          }
+        });
+
+        const isDayDone = totalSetsInDay > 0 && completedSetsInDay === totalSetsInDay;
+        const dynamicDuration = getEstimatedDayDuration(day.duration);
+
+        const card = document.createElement('div');
+        card.className = 'card day-card';
+        card.onclick = () => openDayDetail(day, dayIdx);
+        card.innerHTML = `
+          <div class="day-info">
+            <div class="day-header">
+              <span class="day-name">${day.dayName}</span>
+              <span class="day-focus-label">• ${day.focus}</span>
+            </div>
+            <div class="day-meta">${day.exercises.length} ${t('dayExercisesBadge').toLowerCase()} • ${dynamicDuration}</div>
+          </div>
+          <div class="status-badge ${isDayDone ? 'completed' : ''}">
+            ${isDayDone ? '✓ ' + (currentLang === 'en' ? 'Done' : 'Tamam') : `${completedSetsInDay}/${totalSetsInDay} ${t('setWord')}`}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      const weekPercent = totalSetsInWeek > 0 ? Math.round((completedSetsInWeek / totalSetsInWeek) * 100) : 0;
+      const progressBar = document.getElementById('bar-week-progress');
+      if (progressBar) progressBar.style.width = weekPercent + '%';
+      const progressBadge = document.getElementById('disp-week-progress-badge');
+      if (progressBadge) {
+        progressBadge.textContent = `${completedSetsInWeek > 0 ? Math.round(weekPercent * 0.07) : 0} / 7 ${t('daysCount')}`;
+      }
+    }
+
+    function toggleSet(key, triggerRest = false) {
+      if (completedSets[key]) {
+        delete completedSets[key];
+      } else {
+        completedSets[key] = true;
+        triggerBeep(750, 0.12);
+        if (triggerRest) {
+          launchRestTimer(appSettings.defaultRest || 45);
+        }
+      }
+      saveLocal('sets_v2', completedSets);
+
+      if (currentActiveScreen === 'exercise-single' && currentExerciseRef) {
+        openExerciseSingleView(currentExerciseRef.ex, currentExerciseRef.exIdx, false);
+      } else if (currentDayRef) {
+        openDayDetail(currentDayRef.day, currentDayRef.dayIdx, false);
+      }
+    }
+
+    function resetCurrentWeekProgress() {
+      const modal = document.getElementById('reset-confirm-modal');
+      const desc = document.getElementById('reset-confirm-desc');
+      if (desc) {
+        desc.textContent = `${activeMonthNumber}. Ayın ${activeWeekNumber}. haftasına ait tüm tamamlanan setler sıfırlanacak. Devam etmek istiyor musun?`;
+      }
+      if (modal) {
+        modal.style.display = 'flex';
+      }
+    }
+
+    function closeResetModal() {
+      const modal = document.getElementById('reset-confirm-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function executeResetWeek() {
+      const prefix = `m${activeMonthNumber}_w${activeWeekNumber}_`;
+      Object.keys(completedSets).forEach(k => {
+        if (k.startsWith(prefix)) delete completedSets[k];
+      });
+      saveLocal('sets_v2', completedSets);
+      renderWorkoutDaysScreen();
+      closeResetModal();
+      triggerBeep(450, 0.18);
+    }
+
+    /* =========================================================
+       GÜN DETAYI VE POSTÜR GÖSTERİMİ
+       ========================================================= */
+    function openDayDetail(day, dayIdx, shouldNavigate = true) {
+      currentDayRef = { day, dayIdx };
+      if (shouldNavigate) {
+        navigateTo('workout-detail');
+      }
+      const dayName = typeof day.dayName === 'object' ? (day.dayName[currentLang] || day.dayName.tr) : day.dayName;
+      document.getElementById('detail-day-header-badge').textContent = `${activeMonthNumber}. ${t('monthWord')} • ${activeWeekNumber}. ${t('weekWord').toUpperCase()} • ${dayName.toUpperCase()}`;
+
+      const container = document.getElementById('day-exercises-container');
+      container.innerHTML = '';
+
+      day.exercises.forEach((ex, exIdx) => {
+        let doneSets = 0;
+        for (let s = 1; s <= ex.sets; s++) {
+          const key = `m${activeMonthNumber}_w${activeWeekNumber}_d${dayIdx}_e${exIdx}_s${s}`;
+          if (completedSets[key]) doneSets++;
+        }
+        const isDone = ex.sets > 0 && doneSets === ex.sets;
+
+        const userCustom = customExercisePhotos[ex.postureId];
+        const thumbSrc = userCustom || REAL_EXERCISE_PHOTOS[ex.postureId] || REAL_EXERCISE_PHOTOS.plank;
+        const metrics = getScaledExerciseMetrics(ex);
+        const exName = typeof ex.name === 'object' ? (ex.name[currentLang] || ex.name.tr) : ex.name;
+        const exTarget = typeof ex.target === 'object' ? (ex.target[currentLang] || ex.target.tr) : ex.target;
+
+        const card = document.createElement('div');
+        card.className = 'exercise-list-item';
+        card.onclick = () => openExerciseSingleView(ex, exIdx);
+        card.innerHTML = `
+          <div class="exercise-thumb">
+            <img src="${thumbSrc}" alt="${exName}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80';">
+          </div>
+          <div class="exercise-list-info">
+            <div class="exercise-list-title">${exName}</div>
+            <div class="exercise-list-sub">${exTarget}</div>
+            <div class="exercise-list-meta">${ex.sets} ${t('setWord')} • ${metrics.label} ${ex.type === 'timed' ? t('holdWord') : t('repWord')}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="status-badge ${isDone ? 'completed' : ''}" style="font-size: 0.72rem; padding: 5px 10px;">
+              ${isDone ? '✓ ' + (currentLang === 'en' ? 'Done' : 'Bitti') : `${doneSets}/${ex.sets}`}
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* TEK HAREKETİN ÖZEL SAYFASI */
+    function openExerciseSingleView(ex, exIdx, shouldNavigate = true) {
+      currentExerciseRef = { ex, exIdx };
+      if (shouldNavigate) {
+        isCurrentExerciseInProgress = false;
+        navigateTo('exercise-single');
+      }
+
+      document.getElementById('single-exercise-badge').textContent = `${exIdx + 1}. ${t('exerciseDetailBadge')}`;
+      const container = document.getElementById('single-exercise-container');
+      container.innerHTML = '';
+
+      const dayIdx = currentDayRef ? currentDayRef.dayIdx : 0;
+      const exName = typeof ex.name === 'object' ? (ex.name[currentLang] || ex.name.tr) : ex.name;
+      const exTarget = typeof ex.target === 'object' ? (ex.target[currentLang] || ex.target.tr) : ex.target;
+      const exForm = typeof ex.form === 'object' ? (ex.form[currentLang] || ex.form.tr) : ex.form;
+
+      const postureHtml = getPostureMedia(ex.postureId, exName);
+      const metrics = getScaledExerciseMetrics(ex);
+
+      let completedCount = 0;
+      let nextUnfinishedSet = null;
+
+      let setsSnippet = '';
+      for (let s = 1; s <= ex.sets; s++) {
+        const key = `m${activeMonthNumber}_w${activeWeekNumber}_d${dayIdx}_e${exIdx}_s${s}`;
+        const isDone = !!completedSets[key];
+        if (isDone) {
+          completedCount++;
+        } else if (nextUnfinishedSet === null) {
+          nextUnfinishedSet = s;
+        }
+
+        setsSnippet += `
+          <div class="set-box ${isDone ? 'completed' : ''}" onclick="toggleSet('${key}', true)">
+            <div class="set-title">${t('setWord').toUpperCase()} ${s}</div>
+            <div class="set-val">${metrics.label}</div>
+          </div>
+        `;
+      }
+
+      const allSetsDone = completedCount === ex.sets && ex.sets > 0;
+
+      let actionBtnHtml = '';
+      if (allSetsDone) {
+        isCurrentExerciseInProgress = false;
+        actionBtnHtml = `
+          <button class="btn-start-action all-done">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            ${t('allSetsCompleted')}
+          </button>
+        `;
+      } else if (isCurrentExerciseInProgress) {
+        actionBtnHtml = `
+          <button class="btn-start-action" style="background: linear-gradient(135deg, #1f4e2f 0%, var(--accent-green) 100%); color: #060a0f;" onclick="handleFinishExerciseSet(${exIdx}, ${nextUnfinishedSet})">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            ${nextUnfinishedSet}. ${t('finishSetAndRest')}
+          </button>
+        `;
+      } else {
+        actionBtnHtml = `
+          <button class="btn-start-action" onclick="handleStartExerciseAction(${exIdx}, ${nextUnfinishedSet})">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            ${nextUnfinishedSet}. ${t('startSet')}
+          </button>
+        `;
+      }
+
+      const notesMap = EXERCISE_SPECIFIC_NOTES[currentLang] || EXERCISE_SPECIFIC_NOTES.tr;
+      const notesArray = notesMap[ex.postureId] || [
+        currentLang === 'en' ? "Execute with strict form without rushing." : "Doğru omurga açısını koruyarak acele etmeden hareketi uygula.",
+        currentLang === 'en' ? "Focus on peak contraction in the target muscle." : "Hedef kas grubunda yanma hissini ve tepe kasılmayı hissetmeye odaklan.",
+        currentLang === 'en' ? "Maintain 2-second eccentric lowering cadences." : "Her tekrarda kontrollü iniş ve patlayıcı kalkış ritmini koru."
+      ];
+
+      const notesListHtml = notesArray.map(note => `<li>${note}</li>`).join('');
+      const noteStorageKey = `note_${ex.postureId}`;
+      const savedUserNote = userExerciseNotes[noteStorageKey] || '';
+
+      let timerSnippet = '';
+      if (ex.type === 'timed') {
+        timerSnippet = `
+          <div class="timer-bar">
+            <span class="timer-display" id="disp-hold-${exIdx}">00:${metrics.holdSeconds < 10 ? '0' : ''}${metrics.holdSeconds}</span>
+            <button class="btn-timer" id="btn-hold-${exIdx}" onclick="toggleHoldTimer(${exIdx}, ${metrics.holdSeconds})">${t('startTimer')}</button>
+          </div>
+        `;
+      }
+
+      const card = document.createElement('div');
+      card.className = 'exercise-card';
+      card.innerHTML = `
+        <div class="media-container">${postureHtml}</div>
+        <div class="exercise-content">
+          <div class="exercise-title-row">
+            <span class="exercise-title">${exName}</span>
+            <span class="target-tag">${exTarget}</span>
+          </div>
+          <div class="form-cue">${exForm}</div>
+          <div class="sets-grid">${setsSnippet}</div>
+          ${timerSnippet}
+          ${actionBtnHtml}
+
+          <!-- Harekete Özgü Antrenör Notları & Püf Noktaları -->
+          <div class="exercise-notes-box">
+            <div class="notes-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              ${t('trainerCuesTitle')}
+            </div>
+            <ul class="notes-list">
+              ${notesListHtml}
+            </ul>
+
+            <!-- Kullanıcının Bu Harekete Özel Kendi Notu -->
+            <div class="user-note-area">
+              <div style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); margin-bottom: 5px;">${t('yourPersonalNote')}</div>
+              <textarea class="user-note-input" placeholder="${t('personalNotePlaceholder')}" onchange="saveUserExerciseNote('${noteStorageKey}', this.value)">${savedUserNote}</textarea>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    /* Statik Hareket Sayacı */
+    const holdIntervals = {};
+    function toggleHoldTimer(idx, targetSecs) {
+      const btn = document.getElementById(`btn-hold-${idx}`);
+      const disp = document.getElementById(`disp-hold-${idx}`);
+      if (!btn || !disp) return;
+
+      if (holdIntervals[idx]) {
+        clearInterval(holdIntervals[idx]);
+        delete holdIntervals[idx];
+        btn.textContent = t('startTimer');
+        return;
+      }
+
+      let currentSec = targetSecs;
+      btn.textContent = t('stopTimer');
+
+      holdIntervals[idx] = setInterval(() => {
+        currentSec--;
+        disp.textContent = `00:${currentSec < 10 ? '0' : ''}${currentSec}`;
+        if (currentSec <= 0) {
+          clearInterval(holdIntervals[idx]);
+          delete holdIntervals[idx];
+          triggerBeep(920, 0.4);
+          btn.textContent = t('timerDone');
+          setTimeout(() => {
+            disp.textContent = `00:${targetSecs < 10 ? '0' : ''}${targetSecs}`;
+            btn.textContent = t('startTimer');
+          }, 2000);
+        }
+      }, 1000);
+    }
+
+    // 1. "Sete Başla" Butonuna Basıldığında: Dinlenme sayacını açmaz, seti aktif hale getirir
+    function handleStartExerciseAction(exIdx, setNum) {
+      if (!currentExerciseRef) return;
+      closeRestTimer();
+      isCurrentExerciseInProgress = true;
+
+      if (currentExerciseRef.ex.type === 'timed') {
+        const metrics = getScaledExerciseMetrics(currentExerciseRef.ex);
+        toggleHoldTimer(exIdx, metrics.holdSeconds);
+      } else {
+        triggerBeep(640, 0.1);
+      }
+
+      openExerciseSingleView(currentExerciseRef.ex, exIdx, false);
+    }
+
+    // 2. "Seti Tamamla & Dinlen" Butonuna Basıldığında: Seti kaydeder ve DİNLENME SAYACINI BAŞLATIR
+    function handleFinishExerciseSet(exIdx, setNum) {
+      if (!currentExerciseRef || !currentDayRef) return;
+      const dayIdx = currentDayRef.dayIdx;
+      const key = `m${activeMonthNumber}_w${activeWeekNumber}_d${dayIdx}_e${exIdx}_s${setNum}`;
+
+      if (holdIntervals[exIdx]) {
+        clearInterval(holdIntervals[exIdx]);
+        delete holdIntervals[exIdx];
+      }
+
+      isCurrentExerciseInProgress = false;
+      const isLastSet = setNum >= currentExerciseRef.ex.sets;
+      toggleSet(key, !isLastSet);
+    }
+
+    /* Ayarlar Modalı İşlemleri */
+    function openSettingsModal() {
+      const soundCheckbox = document.getElementById('setting-sound');
+      const restSelect = document.getElementById('setting-rest-time');
+      if (soundCheckbox) soundCheckbox.checked = appSettings.sound !== false;
+      if (restSelect) restSelect.value = String(appSettings.defaultRest || 45);
+
+      const modal = document.getElementById('settings-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeSettingsModal() {
+      const modal = document.getElementById('settings-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function updateAppSettings() {
+      const soundCheckbox = document.getElementById('setting-sound');
+      const restSelect = document.getElementById('setting-rest-time');
+      appSettings.sound = soundCheckbox ? soundCheckbox.checked : true;
+      appSettings.defaultRest = restSelect ? parseInt(restSelect.value, 10) : 45;
+      saveLocal('app_settings', appSettings);
+    }
+
+    function confirmResetAllData() {
+      const confirmReset = confirm(t('resetAllConfirm'));
+      if (confirmReset) {
+        completedSets = {};
+        saveLocal('sets_v2', completedSets);
+        renderWorkoutDaysScreen();
+        closeSettingsModal();
+      }
+    }
+
+    function saveUserExerciseNote(key, val) {
+      userExerciseNotes[key] = val.trim();
+      saveLocal('user_exercise_notes', userExerciseNotes);
+    }
+
+    /* Modern Sayı Artırma / Azaltma Yardımcı Fonksiyonu */
+    function stepNumberInput(inputId, delta, decimals = 0) {
+      const el = document.getElementById(inputId);
+      if (!el) return;
+      let val = parseFloat(el.value);
+      if (isNaN(val)) {
+        val = delta > 0 ? delta : 0;
+      } else {
+        val += delta;
+      }
+      if (val < 0) val = 0;
+      el.value = decimals > 0 ? val.toFixed(decimals) : Math.round(val);
+      triggerBeep(520, 0.05);
+    }
+
+    function stepModalInput(direction) {
+      if (modalMode === 'calorie') {
+        stepNumberInput('modal-input', direction * 50, 0);
+      } else {
+        stepNumberInput('modal-input', direction * 0.5, 1);
+      }
+    }
+
+    /* =========================================================
+       BESLENME MODÜLÜ & HEDEF MODALI
+       ========================================================= */
+    function renderNutritionScreen() {
+      let totalCalories = 0;
+      let totalProtein = 0;
+
+      const listContainer = document.getElementById('meals-list-container');
+      listContainer.innerHTML = '';
+
+      loggedMeals.forEach((meal, index) => {
+        totalCalories += Number(meal.cal || 0);
+        totalProtein += Number(meal.protein || 0);
+
+        const row = document.createElement('div');
+        row.className = 'meal-row';
+        row.innerHTML = `
+          <div>
+            <span class="meal-cat">[${meal.cat}]</span>
+            <span class="meal-name">${meal.desc}</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <span class="meal-cal-val">${meal.cal} kcal ${meal.protein ? `• ${meal.protein}g P` : ''}</span>
+            <button class="btn-remove" onclick="handleMealDelete(${index})">×</button>
+          </div>
+        `;
+        listContainer.appendChild(row);
+      });
+
+      const remainCal = Math.max(0, targetCalories - totalCalories);
+      document.getElementById('disp-cal-target').textContent = targetCalories;
+      document.getElementById('disp-cal-consumed').textContent = totalCalories;
+      document.getElementById('disp-cal-remain').textContent = remainCal;
+
+      document.getElementById('disp-macro-p').textContent = totalProtein;
+      const protRatio = Math.min(100, Math.round((totalProtein / 140) * 100));
+      document.getElementById('fill-macro-p').style.width = protRatio + '%';
+
+      // Kilo & Hedef Özet Bilgisi
+      const currWeight = weightHistory.length > 0 ? weightHistory[weightHistory.length - 1].weight : '--';
+      document.getElementById('disp-curr-weight-summary').textContent = `${currWeight} kg`;
+      document.getElementById('disp-target-weight-summary').textContent = `${currentLang === 'en' ? 'Target' : 'Hedef'}: ${targetWeight} kg`;
+    }
+
+    // Modal İşlemleri (Hedef Kalori ve Hedef Kilo)
+    function openTargetModal(mode) {
+      modalMode = mode;
+      const modal = document.getElementById('custom-modal');
+      const title = document.getElementById('modal-title');
+      const desc = document.getElementById('modal-desc');
+      const input = document.getElementById('modal-input');
+
+      if (mode === 'calorie') {
+        title.textContent = currentLang === 'en' ? 'Set Target Calories' : 'Hedef Kalori Ayarla';
+        desc.textContent = currentLang === 'en' ? 'Enter your daily caloric goal (kcal):' : 'Günlük almak istediğiniz kalori miktarını (kcal) girin:';
+        input.value = targetCalories;
+        input.placeholder = 'Örn: 2200';
+      } else {
+        title.textContent = currentLang === 'en' ? 'Set Target Weight' : 'Hedef Kilo Ayarla';
+        desc.textContent = currentLang === 'en' ? 'Enter your target weight (kg):' : 'Ulaşmak istediğiniz hedef kilonuzu (kg) girin:';
+        input.value = targetWeight;
+        input.placeholder = 'Örn: 74.5';
+      }
+
+      modal.style.display = 'flex';
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closeTargetModal() {
+      document.getElementById('custom-modal').style.display = 'none';
+      modalMode = null;
+    }
+
+    function saveTargetModal() {
+      const input = document.getElementById('modal-input');
+      const val = parseFloat(input.value);
+
+      if (modalMode === 'calorie') {
+        if (val && val >= 1000 && val <= 6000) {
+          targetCalories = Math.round(val);
+          saveLocal('target_calories', targetCalories);
+          renderNutritionScreen();
+          closeTargetModal();
+        } else {
+          alert('Lütfen 1000 ile 6000 arasında geçerli bir kalori hedefi girin.');
+        }
+      } else if (modalMode === 'weight') {
+        if (val && val >= 35 && val <= 250) {
+          targetWeight = val;
+          saveLocal('target_weight', targetWeight);
+          renderNutritionScreen();
+          closeTargetModal();
+        } else {
+          alert('Lütfen geçerli bir kilo değeri girin (35 - 250 kg).');
+        }
+      }
+    }
+
+    function handleQuickWeightLog() {
+      const input = document.getElementById('input-quick-weight');
+      const val = parseFloat(input.value);
+
+      if (!val || val <= 35 || val >= 250) {
+        alert('Lütfen geçerli bir kilo değeri girin (Örn: 78.4).');
+        return;
+      }
+
+      const todayStr = new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' });
+      weightHistory.push({ date: todayStr, weight: val });
+      saveLocal('weights_v2', weightHistory);
+
+      input.value = '';
+      renderNutritionScreen();
+    }
+
+    function handleMealAdd() {
+      const cat = document.getElementById('input-meal-cat').value;
+      const desc = document.getElementById('input-meal-desc').value.trim();
+      const cal = document.getElementById('input-meal-cal').value;
+      const protein = document.getElementById('input-meal-protein').value;
+
+      if (!desc || !cal) {
+        alert('Lütfen yiyecek adı ve kalori miktarını girin.');
+        return;
+      }
+
+      loggedMeals.push({ cat, desc, cal: Number(cal), protein: Number(protein || 0) });
+      saveLocal('meals_v2', loggedMeals);
+
+      document.getElementById('input-meal-desc').value = '';
+      document.getElementById('input-meal-cal').value = '';
+      document.getElementById('input-meal-protein').value = '';
+
+      renderNutritionScreen();
+    }
+
+    function handleMealDelete(idx) {
+      loggedMeals.splice(idx, 1);
+      saveLocal('meals_v2', loggedMeals);
+      renderNutritionScreen();
+    }
+
+    function editTargetWeight() {
+      const newTarget = prompt('Yeni hedef kilonuzu girin (kg):', targetWeight);
+      if (newTarget !== null) {
+        const parsed = parseFloat(newTarget);
+        if (parsed && parsed >= 35 && parsed <= 250) {
+          targetWeight = parsed;
+          saveLocal('target_weight', targetWeight);
+          renderNutritionScreen();
+        } else {
+          alert('Lütfen geçerli bir kilo değeri girin.');
+        }
+      }
+    }
+
+    /* =========================================================
+       KİLO GRAFİĞİ & GEÇMİŞİ EKRANI (Canvas Chart)
+       ========================================================= */
+    function renderWeightGraphScreen() {
+      document.getElementById('chart-target-indicator').textContent = `${currentLang === 'en' ? 'Target' : 'Hedef'}: ${targetWeight} kg`;
+      document.getElementById('log-count-badge').textContent = `${weightHistory.length} ${currentLang === 'en' ? 'Logs' : 'Kayıt'}`;
+
+      const logContainer = document.getElementById('weight-logs-container');
+      logContainer.innerHTML = '';
+
+      if (weightHistory.length === 0) {
+        logContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 12px; font-size: 0.85rem;">${t('noWeightLogs')}</div>`;
+        const pag = document.getElementById('weight-pagination');
+        if (pag) pag.style.display = 'none';
+      } else {
+        const totalPages = Math.ceil(weightHistory.length / WEIGHTS_PER_PAGE) || 1;
+        if (weightCurrentPage > totalPages) weightCurrentPage = totalPages;
+
+        const pag = document.getElementById('weight-pagination');
+        if (pag) {
+          if (totalPages > 1) {
+            pag.style.display = 'flex';
+            document.getElementById('disp-weight-page').textContent = `${currentLang === 'en' ? 'Page' : 'Sayfa'} ${weightCurrentPage} / ${totalPages}`;
+            document.getElementById('btn-prev-page').disabled = weightCurrentPage === 1;
+            document.getElementById('btn-next-page').disabled = weightCurrentPage === totalPages;
+            document.getElementById('btn-prev-page').style.opacity = weightCurrentPage === 1 ? '0.4' : '1';
+            document.getElementById('btn-next-page').style.opacity = weightCurrentPage === totalPages ? '0.4' : '1';
+          } else {
+            pag.style.display = 'none';
+          }
+        }
+
+        const reversedList = weightHistory.slice().reverse();
+        const startIdx = (weightCurrentPage - 1) * WEIGHTS_PER_PAGE;
+        const pageItems = reversedList.slice(startIdx, startIdx + WEIGHTS_PER_PAGE);
+
+        pageItems.forEach((log, itemIdx) => {
+          const originalIdx = weightHistory.length - 1 - (startIdx + itemIdx);
+          const row = document.createElement('div');
+          row.className = 'weight-log-item';
+          row.innerHTML = `
+            <span>${log.date}</span>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="weight-log-val">${log.weight} kg</span>
+              <button class="btn-remove" onclick="deleteWeightLog(${originalIdx})" title="Kaydı Sil" style="cursor: pointer; padding: 4px 8px; font-size: 1.1rem; line-height: 1;">×</button>
+            </div>
+          `;
+          logContainer.appendChild(row);
+        });
+      }
+
+      setTimeout(drawWeightChart, 50);
+    }
+
+    function deleteWeightLog(idx) {
+      if (idx >= 0 && idx < weightHistory.length) {
+        weightHistory.splice(idx, 1);
+        saveLocal('weights_v2', weightHistory);
+
+        const totalPages = Math.ceil(weightHistory.length / WEIGHTS_PER_PAGE) || 1;
+        if (weightCurrentPage > totalPages) {
+          weightCurrentPage = totalPages;
+        }
+
+        renderWeightGraphScreen();
+        renderNutritionScreen();
+      }
+    }
+
+    function drawWeightChart() {
+      const canvas = document.getElementById('weightCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = 220 * dpr;
+      ctx.scale(dpr, dpr);
+
+      const W = rect.width;
+      const H = 220;
+      ctx.clearRect(0, 0, W, H);
+
+      if (weightHistory.length === 0) {
+        ctx.fillStyle = '#8ba0c2';
+        ctx.font = '13px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(t('addAtLeastOneWeight'), W / 2, H / 2);
+        return;
+      }
+
+      const padding = { top: 25, right: 30, bottom: 35, left: 45 };
+      const chartW = W - padding.left - padding.right;
+      const chartH = H - padding.top - padding.bottom;
+
+      const weights = weightHistory.map(w => w.weight);
+      let minW = Math.min(...weights, targetWeight) - 2;
+      let maxW = Math.max(...weights, targetWeight) + 2;
+      if (minW === maxW) { minW -= 2; maxW += 2; }
+
+      const getY = (val) => padding.top + chartH - ((val - minW) / (maxW - minW)) * chartH;
+      const getX = (idx) => {
+        if (weightHistory.length === 1) return padding.left + chartW / 2;
+        return padding.left + (idx / (weightHistory.length - 1)) * chartW;
+      };
+
+      ctx.strokeStyle = 'rgba(25, 42, 79, 0.4)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const val = minW + ((maxW - minW) / 4) * i;
+        const y = getY(val);
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(W - padding.right, y);
+        ctx.stroke();
+
+        ctx.fillStyle = '#8ba0c2';
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(val.toFixed(1), padding.left - 8, y + 3);
+      }
+
+      const targetY = getY(targetWeight);
+      ctx.save();
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(padding.left, targetY);
+      ctx.lineTo(W - padding.right, targetY);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.beginPath();
+      weightHistory.forEach((pt, i) => {
+        const x = getX(i);
+        const y = getY(pt.weight);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+
+      const grad = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartH);
+      grad.addColorStop(0, 'rgba(117, 150, 103, 0.28)');
+      grad.addColorStop(1, 'rgba(117, 150, 103, 0.0)');
+
+      ctx.lineTo(getX(weightHistory.length - 1), padding.top + chartH);
+      ctx.lineTo(getX(0), padding.top + chartH);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.strokeStyle = '#759667';
+      ctx.lineWidth = 3;
+      weightHistory.forEach((pt, i) => {
+        const x = getX(i);
+        const y = getY(pt.weight);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      weightHistory.forEach((pt, i) => {
+        const x = getX(i);
+        const y = getY(pt.weight);
+
+        ctx.beginPath();
+        ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#060a0f';
+        ctx.fill();
+        ctx.strokeStyle = '#759667';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.fillStyle = '#c8d4e2';
+        ctx.font = '600 10px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${pt.weight}`, x, y - 9);
+
+        ctx.fillStyle = '#7e91ac';
+        ctx.font = '10px sans-serif';
+        ctx.fillText(pt.date, x, H - padding.bottom + 18);
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      if (document.getElementById('screen-weight-graph').classList.contains('active')) {
+        drawWeightChart();
+      }
+    });
+
+    // Başlangıç Yüklemesi
+    setLanguage(currentLang);
+    setWorkoutDifficulty(workoutDifficulty);
+    navigateTo('hub');
+
+    // Hızlı Ekle butonu için doğrudan listener ekle (iOS ve mobil dokunmatik koruması)
+    const quickAddBtn = document.getElementById('btn-quick-add');
+    if (quickAddBtn) {
+      quickAddBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openQuickMealModal();
+      });
+    }
+  </script>
+</body>
+</html>
